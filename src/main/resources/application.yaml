@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${WRO_DB_URL}
+    username: ${WRO_DB_USERNAME}
+    password: ${WRO_DB_PASSWORD}
+
