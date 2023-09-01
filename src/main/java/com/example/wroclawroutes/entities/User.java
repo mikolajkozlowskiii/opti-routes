@@ -40,4 +40,5 @@ public class User {
     @NotBlank
     private String firstName;
     private String lastName;
+    private boolean isEnabled;
 }

@@ -10,3 +10,8 @@ spring:
     username: ${WRO_DB_USERNAME}
     password: ${WRO_DB_PASSWORD}
 
+app:
+  jwt:
+    expirationTimeInMs: 43200000
+    secret: ${JWT_SECRET}
+

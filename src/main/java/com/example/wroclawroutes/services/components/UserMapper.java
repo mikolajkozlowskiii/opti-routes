@@ -1,8 +1,11 @@
-package com.example.wroclawroutes.services.mappers;
+package com.example.wroclawroutes.services.components;
 
 import com.example.wroclawroutes.dto.UserResponse;
+import com.example.wroclawroutes.entities.Role;
 import com.example.wroclawroutes.entities.User;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -12,6 +15,7 @@ public class UserMapper {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .roles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()))
                 .build();
     }
 }
