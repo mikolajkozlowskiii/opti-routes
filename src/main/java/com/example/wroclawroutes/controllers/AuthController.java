@@ -4,6 +4,7 @@ import com.example.wroclawroutes.dto.ApiResponse;
 import com.example.wroclawroutes.dto.JwtResponse;
 import com.example.wroclawroutes.dto.LoginRequest;
 import com.example.wroclawroutes.dto.SignUpRequest;
+import com.example.wroclawroutes.email.services.ConfirmationTokenServiceImpl;
 import com.example.wroclawroutes.entities.User;
 import com.example.wroclawroutes.services.AuthService;
 import com.example.wroclawroutes.services.UserService;
@@ -22,6 +23,7 @@ import java.net.URI;
 public class AuthController {
     private final AuthService authService;
     private final UserService userService;
+    private final ConfirmationTokenServiceImpl confirmationTokenService;
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         final JwtResponse jwtResponse = authService.signIn(loginRequest);
@@ -39,7 +41,7 @@ public class AuthController {
 
         final User createdUser = userService.createLocalUser(signUpRequest);
 
-        // confirmationTokenService.sendConfirmationEmail(createdUser);
+         confirmationTokenService.sendConfirmationEmail(createdUser);
 
         final URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/users/{email}")
                 .buildAndExpand(createdUser.getEmail()).toUri();
@@ -48,6 +50,16 @@ public class AuthController {
                 " to enable your account confirm your email in 15 min."));
     }
 
+    @GetMapping(path = "confirm")
+    public ResponseEntity<ApiResponse> confirmToken(@RequestParam("token") String token){
+        return ResponseEntity.ok(new ApiResponse(Boolean.TRUE, confirmationTokenService.confirmToken(token)));
+    }
 
+    @GetMapping(path = "confirmationEmail/{email}")
+    public ResponseEntity<String> sendConfrimationEmail(@PathVariable String email){
+        confirmationTokenService.sendConfirmationEmail(email);
+
+        return ResponseEntity.ok("Email sent to: " + email);
+    }
 
 }
