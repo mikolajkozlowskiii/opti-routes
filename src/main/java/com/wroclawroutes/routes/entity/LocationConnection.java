@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(	name = "locations_connection",
         uniqueConstraints = {
@@ -22,7 +24,6 @@ public class LocationConnection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "start_location_id")
     private Location startLocation;
@@ -41,6 +42,19 @@ public class LocationConnection {
         if (startLocation != null && startLocation.equals(endLocation)) {
             throw new IllegalArgumentException("startLocation cannot be the same as endLocation");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LocationConnection that = (LocationConnection) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
