@@ -1,9 +1,5 @@
 package com.wroclawroutes.users.entities;
 
-
-import com.wroclawroutes.routes.entity.UserLocationLiked;
-import com.wroclawroutes.routes.entity.UserRouteRating;
-import com.wroclawroutes.routes.entity.UserRouteSaved;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +9,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -46,4 +43,17 @@ public class User {
     private boolean isEnabled;
     @Embedded
     private UserAdditionalDetails userAdditionalDetails;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

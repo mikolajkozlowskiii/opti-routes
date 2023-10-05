@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(	name = "users_liked_locations",
@@ -35,4 +36,17 @@ public class UserLocationLiked {
     private Boolean isLiked;
     @CreationTimestamp
     private Instant createdAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserLocationLiked that = (UserLocationLiked) o;
+        return Objects.equals(id, that.id) && Objects.equals(isLiked, that.isLiked);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isLiked);
+    }
 }

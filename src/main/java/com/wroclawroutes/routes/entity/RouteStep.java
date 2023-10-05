@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(
         name = "routes_steps",
@@ -31,4 +33,17 @@ public class RouteStep {
     private Location location;
     @NotNull
     private Integer step;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RouteStep routeStep = (RouteStep) o;
+        return Objects.equals(id, routeStep.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

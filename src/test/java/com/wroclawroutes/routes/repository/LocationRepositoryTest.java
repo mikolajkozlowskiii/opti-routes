@@ -33,7 +33,7 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    public void findById_LocationIdExistsInDB_ReturnLocation(){
+    public void findById_LocationIdExistsInDB_ReturnsLocation(){
         entityManager.persistAndFlush(location);
 
         final Location actualLocation = locationRepository.findById(location.getId()).get();
@@ -41,7 +41,7 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    public void findById_LocationWithOutgoingConnectionsExistsInDB_ReturnLocation(){
+    public void findById_LocationWithOutgoingConnectionsExistsInDB_ReturnsLocation(){
         final Location secondLocation = Location
                 .builder()
                 .name("Hydropolis")
@@ -86,7 +86,7 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    public void saveLocation_LocationSaved(){
+    public void save_LocationEntity_LocationSaved(){
         final Location expectedLocation = locationRepository.save(location);
 
         final Location actualLocation = entityManager.find(Location.class, expectedLocation.getId());
@@ -95,7 +95,7 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    public void saveLocationWithLocationConnections_LocationSaved(){
+    public void save_LocationWithLocationConnections_LocationSaved(){
         final Location secondLocation = Location
                 .builder()
                 .name("Hydropolis")
@@ -133,24 +133,24 @@ public class LocationRepositoryTest {
 
         location.addOutgoingConnection(firstLocationConnection);
         location.addOutgoingConnection(secondLocationConnection);
-        final Location savedLocation = locationRepository.save(location);
+        final Location actualLocation = locationRepository.save(location);
 
-        assertEquals(location, savedLocation);
+        assertEquals(location, actualLocation);
     }
 
     @Test
     @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void saveLocationWithRemovedLocationConnections_LocationSaved(){
         final Location location = locationRepository.findById(1L).get();
-        final LocationConnection locationConnectionToBeRemoved = entityManager.find(LocationConnection.class, 1L);
-        final LocationConnection locationConnectionToNotBeRemoved = entityManager.find(LocationConnection.class, 2L);
+        final LocationConnection locationConnectionToBeRemoved =
+                entityManager.find(LocationConnection.class, 1L);
+        final LocationConnection locationConnectionToNotBeRemoved =
+                entityManager.find(LocationConnection.class, 2L);
 
         location.removeOutgoingConnection(locationConnectionToBeRemoved);
         final Location actualLocation = locationRepository.save(location);
 
         assertTrue(actualLocation.getOutgoingConnections().contains(locationConnectionToNotBeRemoved));
         assertFalse(actualLocation.getOutgoingConnections().contains(locationConnectionToBeRemoved));
-
     }
-
 }
