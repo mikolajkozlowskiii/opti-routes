@@ -1,4 +1,4 @@
-package com.example.wroclawroutes;
+package com.wroclawroutes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

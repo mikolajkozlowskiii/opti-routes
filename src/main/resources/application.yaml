@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${WRO_DB_URL}
+    username: ${WRO_DB_USERNAME}
+    password: ${WRO_DB_PASSWORD}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${WRO_MAIL_USERNAME}
+    password: ${WRO_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+  jwt:
+    expirationTimeInMs: 43200000
+    secret: ${JWT_SECRET}
+
+  mail:
+    expirationTimeInMin: 15
+    confrimationLink:  http://localhost:8080/api/v1/auth/confirm?token=
+
