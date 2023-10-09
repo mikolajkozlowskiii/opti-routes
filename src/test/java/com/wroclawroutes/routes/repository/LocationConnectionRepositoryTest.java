@@ -125,11 +125,10 @@ public class LocationConnectionRepositoryTest {
     public void findById_LocationConnectionsExistsInDB_entityFound(){
         final Location startLocation = entityManager.find(Location.class, 3L);
         final Location endLocation = entityManager.find(Location.class, 2L);
-        final List<LocationConnection> expectedLocationConnection =
-                List.of(entityManager.find(LocationConnection.class, 4L));
-        final List<LocationConnection> actualLocationConnection =
-                locationConnectionRepository.findAllByStartLocationAndEndLocation(startLocation, endLocation);
+        final LocationConnection expectedLocationConnection = entityManager.find(LocationConnection.class, 4L);
+        final LocationConnection actualLocationConnection =
+                locationConnectionRepository.findByStartLocationAndEndLocation(startLocation, endLocation).get();
 
-        assertTrue(CollectionUtils.isEqualCollection(expectedLocationConnection, actualLocationConnection));
+        assertEquals(expectedLocationConnection, actualLocationConnection);
     }
 }
