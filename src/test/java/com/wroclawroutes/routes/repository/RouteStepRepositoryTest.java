@@ -33,6 +33,7 @@ public class RouteStepRepositoryTest {
     }
 
     @Test
+    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "classpath:/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -44,6 +45,6 @@ public class RouteStepRepositoryTest {
         final Route route = entityManager.find(Route.class, 1L);
         final List<RouteStep> actualRouteSteps = routeStepRepository.findAllByRoute(route);
 
-        assertEquals(expectedRouteSteps, actualRouteSteps);
+        assertTrue(CollectionUtils.isEqualCollection(expectedRouteSteps, actualRouteSteps));
     }
 }

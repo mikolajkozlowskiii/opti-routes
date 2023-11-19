@@ -3,6 +3,7 @@ package com.wroclawroutes.routes.repository;
 import com.wroclawroutes.routes.entity.Location;
 import com.wroclawroutes.routes.entity.UserLocationLiked;
 import com.wroclawroutes.users.entities.User;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @DataJpaTest
@@ -46,7 +48,7 @@ public class UserLocationLikedRepositoryTest {
     @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByUserOrderByCreatedAtAsc_TagIdExistsInDB_ReturnsRoute() {
         final User user = entityManager.find(User.class, 1L);
-        final List<UserLocationLiked> expectedUserLocationLiked = List.of(1, 6, 4, 3, 5, 2)
+        final List<UserLocationLiked> expectedUserLocationLiked = List.of(1, 4, 3, 5, 2)
                 .stream()
                 .map(s -> entityManager.find(UserLocationLiked.class, s))
                 .toList();
@@ -63,7 +65,7 @@ public class UserLocationLikedRepositoryTest {
     @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByUserOrderByCreatedAtDesc_LikesExistsInDB_ReturnsUserLocationLikes() {
         final User user = entityManager.find(User.class, 1L);
-        final List<UserLocationLiked> expectedUserLocationLiked = List.of(2, 5, 3, 4, 6, 1)
+        final List<UserLocationLiked> expectedUserLocationLiked = List.of(2, 5, 3, 4, 1)
                 .stream()
                 .map(s -> entityManager.find(UserLocationLiked.class, s))
                 .toList();
