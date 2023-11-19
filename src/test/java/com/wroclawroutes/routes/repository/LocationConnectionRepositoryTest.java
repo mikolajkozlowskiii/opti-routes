@@ -102,7 +102,7 @@ public class LocationConnectionRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByStartLocation_LocationConnectionExistsInDB_entitiesFound(){
         final LocationConnection expectedLocationConnection = entityManager.find(LocationConnection.class, 1L);
         final LocationConnection actualLocationConnection = locationConnectionRepository.findById(1L).get();
@@ -111,7 +111,7 @@ public class LocationConnectionRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_LocationConnectionExistsInDB_entityFound(){
         final Location startLocation = entityManager.find(Location.class, 2L);
         final List<LocationConnection> expectedLocationConnection = List.of(entityManager.find(LocationConnection.class, 3L));
@@ -121,7 +121,7 @@ public class LocationConnectionRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_LocationConnectionsExistsInDB_entityFound(){
         final Location startLocation = entityManager.find(Location.class, 3L);
         final Location endLocation = entityManager.find(Location.class, 2L);

@@ -38,18 +38,18 @@ public class TagRepositoryTest {
     }
     @ParameterizedTest
     @MethodSource("provideTagInputWithCountResult")
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void myTestMethod(String tagName, long expectedCount) {
         final long actualCount = tagRepository.countRoutesByTagName(tagName);
         assertEquals(expectedCount, actualCount);
     }
 
     @Test
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_TagIdExistsInDB_ReturnsRoute() {
         final Tag expectedTag = entityManager.find(Tag.class, 1L);
         final Tag actualTag = tagRepository.findById(1L).get();
@@ -58,9 +58,9 @@ public class TagRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_TagIdDoesNotExistsInDB_ReturnEmptyOptional() {
         final Optional<Tag> actualTag = tagRepository.findById(9L);
 

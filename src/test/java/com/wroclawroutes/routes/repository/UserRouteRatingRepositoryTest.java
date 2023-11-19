@@ -20,9 +20,9 @@ public class UserRouteRatingRepositoryTest {
     @Autowired
     private UserRouteRatingRepository userRouteRatingRepository;
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_RatingsExistsInDB_ReturnsUserRouteRatingEntity() {
         final UserRouteRating expectedUserRouteRating= entityManager.find(UserRouteRating.class, 1L);
         final UserRouteRating actualUserRouteRating= userRouteRatingRepository.findById(1L).get();
@@ -31,9 +31,9 @@ public class UserRouteRatingRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByUserOrderByCreatedAtDesc_RatingsExistsInDB_ReturnsUserRouteRatingEntity() {
         final User user = entityManager.find(User.class, 1L);
         final List<UserRouteRating> expectedUserRouteRatings = List.of(4, 6, 1)
@@ -48,9 +48,9 @@ public class UserRouteRatingRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByRoute_RatingsExistsInDB_ReturnsUserRouteRatingEntity() {
         final Route route = entityManager.find(Route.class, 1L);
         final List<UserRouteRating> expectedUserRouteRatings = List.of(1, 2, 3)

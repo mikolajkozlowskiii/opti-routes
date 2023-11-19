@@ -22,9 +22,9 @@ public class RouteStepRepositoryTest {
     @Autowired
     private RouteStepRepository routeStepRepository;
     @Test
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_RouteIdExistsInDB_ReturnsRoute() {
         final RouteStep expectedRouteStep = entityManager.find(RouteStep.class, 1L);
         final RouteStep actualRouteStep = routeStepRepository.findById(1L).get();
@@ -33,10 +33,10 @@ public class RouteStepRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByRoute_RouteIdExistsInDB_ReturnsRoute() {
         final List<RouteStep> expectedRouteSteps = Set.of(1, 2, 3, 4)
                 .stream()

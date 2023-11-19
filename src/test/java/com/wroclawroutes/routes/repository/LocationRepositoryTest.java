@@ -139,7 +139,7 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void saveLocationWithRemovedLocationConnections_LocationSaved(){
         final Location location = locationRepository.findById(1L).get();
         final LocationConnection locationConnectionToBeRemoved =
