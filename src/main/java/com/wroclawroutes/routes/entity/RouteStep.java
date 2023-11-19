@@ -38,12 +38,12 @@ public class RouteStep {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RouteStep routeStep = (RouteStep) o;
-        return Objects.equals(id, routeStep.id);
+        RouteStep step1 = (RouteStep) o;
+        return Objects.equals(location, step1.location) && Objects.equals(step, step1.step);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(location, step);
     }
 }

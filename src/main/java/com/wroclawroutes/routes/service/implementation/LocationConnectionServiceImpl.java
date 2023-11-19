@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,12 @@ public class LocationConnectionServiceImpl implements LocationConnectionService 
     @Override
     public List<LocationConnection> findAllByStartLocation(Location startLocation) {
         return locationConnectionRepository.findAllByStartLocation(startLocation);
+    }
+
+    @Override
+    public Set<LocationConnection> findAllConnectionsBetweenLocations(Set<Location> locations) {
+        // TODO
+        return null;
     }
 
     @Override
