@@ -23,7 +23,7 @@ public class ConfirmationTokenServiceImpl {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     @Value(value = "${app.mail.expirationTimeInMin}")
     private int expirationTimeInMin;
-    @Value(value = "${app.mail.confrimationLink}")
+    @Value(value = "${app.mail.confirmationLink}")
     private String confrimationLink;
     public void saveConfirmationToken(ConfirmationToken token){
         confirmationTokenRepository.save(token);

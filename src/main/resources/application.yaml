@@ -29,5 +29,5 @@ app:
 
   mail:
     expirationTimeInMin: 15
-    confrimationLink:  http://localhost:8080/api/v1/auth/confirm?token=
+    confirmationLink:  http://localhost:8080/api/v1/auth/confirm?token=
 
