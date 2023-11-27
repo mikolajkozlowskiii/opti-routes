@@ -2,6 +2,7 @@ package com.wroclawroutes.routes.component.impl;
 
 import com.google.ortools.Loader;
 import com.google.ortools.constraintsolver.*;
+import com.google.protobuf.Duration;
 import com.wroclawroutes.routes.component.TSPSolver;
 import com.wroclawroutes.routes.component.model.TSPOutputData;
 import com.wroclawroutes.routes.component.model.TSPInputData;
@@ -33,9 +34,9 @@ public class TSPSolverGoogleORTools implements TSPSolver {
                 main.defaultRoutingSearchParameters()
                         .toBuilder()
                         .setFirstSolutionStrategy(FirstSolutionStrategy.Value.PATH_CHEAPEST_ARC)
-                        //.setLocalSearchMetaheuristic(LocalSearchMetaheuristic.Value.GUIDED_LOCAL_SEARCH)
-                        //.setTimeLimit(Duration.newBuilder().setSeconds(30).build())
-                        //.setLogSearch(true)
+                        .setLocalSearchMetaheuristic(LocalSearchMetaheuristic.Value.SIMULATED_ANNEALING)
+                        .setTimeLimit(Duration.newBuilder().setSeconds(30).build())
+                        .setLogSearch(true)
                         .build();
         final Assignment solution = routing.solveWithParameters(searchParameters);
 
@@ -45,7 +46,7 @@ public class TSPSolverGoogleORTools implements TSPSolver {
             orderedIndexes.add(manager.indexToNode(index));
             index = solution.value(routing.nextVar(index));
         }
-
+        orderedIndexes.add(manager.indexToNode(index));
         return TSPOutputData
                 .builder()
                 .value(solution.objectiveValue())

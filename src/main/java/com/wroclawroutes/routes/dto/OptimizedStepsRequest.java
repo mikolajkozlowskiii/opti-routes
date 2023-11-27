@@ -10,6 +10,6 @@ import java.util.Set;
 @Data
 @Builder
 public class OptimizedStepsRequest {
-    private Location depot;
-    private Set<LocationConnection> locationConnections;
+    private LocationDTO depot;
+    private Set<LocationConnectionDTO> locationConnections;
 }

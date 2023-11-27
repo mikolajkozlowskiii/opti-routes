@@ -2,6 +2,7 @@ package com.wroclawroutes.routes.entity;
 
 import com.wroclawroutes.users.entities.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,7 +28,9 @@ public class Route {
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @NotNull
     private Integer distanceInMeters;
+    @NotNull
     private Integer timeInSeconds;
     private Boolean isPublic;
     @ManyToMany
@@ -44,3 +47,9 @@ public class Route {
     @OneToMany(mappedBy = "route", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<RouteStep> steps;
 }
+
+
+
+
+
+

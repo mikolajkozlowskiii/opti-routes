@@ -6,7 +6,7 @@ import com.wroclawroutes.security.dto.LoginRequest;
 import com.wroclawroutes.security.dto.SignUpRequest;
 import com.wroclawroutes.email.services.ConfirmationTokenServiceImpl;
 import com.wroclawroutes.users.entities.User;
-import com.wroclawroutes.security.services.AuthService;
+import com.wroclawroutes.security.services.AuthenticationService;
 import com.wroclawroutes.users.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,12 @@ import java.net.URI;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final AuthService authService;
+    private final AuthenticationService authenticationService;
     private final UserService userService;
     private final ConfirmationTokenServiceImpl confirmationTokenService;
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        final JwtResponse jwtResponse = authService.signIn(loginRequest);
+        final JwtResponse jwtResponse = authenticationService.signIn(loginRequest);
 
         return ResponseEntity.ok(jwtResponse);
     }

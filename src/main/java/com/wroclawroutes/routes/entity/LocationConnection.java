@@ -49,12 +49,12 @@ public class LocationConnection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LocationConnection that = (LocationConnection) o;
-        return id != null && Objects.equals(id, that.id);
+        return Objects.equals(startLocation, that.startLocation) && Objects.equals(endLocation, that.endLocation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(startLocation, endLocation);
     }
 }
 

@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @Builder
 public class RouteStepResponse {
-    private LocationResponse location;
+    private LocationDTO location;
     private Integer step;
 }

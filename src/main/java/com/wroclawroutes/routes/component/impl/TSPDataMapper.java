@@ -2,9 +2,7 @@ package com.wroclawroutes.routes.component.impl;
 
 import com.wroclawroutes.routes.component.model.TSPInputData;
 import com.wroclawroutes.routes.component.model.TSPOutputData;
-import com.wroclawroutes.routes.dto.OptimizedStepsRequest;
-import com.wroclawroutes.routes.dto.OptimizedStepsResponse;
-import com.wroclawroutes.routes.dto.RouteStepResponse;
+import com.wroclawroutes.routes.dto.*;
 import com.wroclawroutes.routes.entity.Location;
 import com.wroclawroutes.routes.entity.LocationConnection;
 import com.wroclawroutes.routes.service.mapper.LocationMapper;
@@ -19,34 +17,37 @@ import java.util.stream.IntStream;
 @Component
 @RequiredArgsConstructor
 public class TSPDataMapper {
-    private final LocationMapper locationMapper;
-    public TSPInputData map(OptimizedStepsRequest optimizedStepsRequest, Map<Integer, Location> indexedLocations){
-        final Location depot = optimizedStepsRequest.getDepot();
+    public TSPInputData map(OptimizedStepsRequest optimizedStepsRequest, Map<Integer, LocationDTO> indexedLocations){
+        final LocationDTO depot = optimizedStepsRequest.getDepot();
 
         long[][] distanceMatrix = getDistanceMatrix(indexedLocations, optimizedStepsRequest);
         final int indexOfDepot = getIndexOfDepot(indexedLocations, depot);
 
-        return TSPInputData.builder().distanceMatrix(distanceMatrix).indexOfDepot(indexOfDepot).build();
+        return TSPInputData
+                .builder()
+                .distanceMatrix(distanceMatrix)
+                .indexOfDepot(indexOfDepot)
+                .build();
     }
 
-    public OptimizedStepsResponse map(TSPOutputData outputData, Map<Integer, Location> indexedLocations){
+    public OptimizedStepsResponse map(TSPOutputData outputData, Map<Integer, LocationDTO> indexedLocations){
         final List<RouteStepResponse> optimizedSteps = IntStream.range(0, outputData.getOrderedIndexes().size())
                 .boxed()
                 .map(s-> RouteStepResponse
                                 .builder()
-                                .location(locationMapper.map(indexedLocations.get(outputData.getOrderedIndexes().get(s))))
+                                .location(indexedLocations.get(outputData.getOrderedIndexes().get(s)))
                                 .step(s)
                                 .build())
                 .toList();
 
         return OptimizedStepsResponse
                 .builder()
-                .value(outputData.getValue())
+                .totalTimeInSeconds(outputData.getValue())
                 .optimizedSteps(optimizedSteps)
                 .build();
     }
 
-    private static int getIndexOfDepot(Map<Integer, Location> indexedLocations, Location depot) {
+    private static int getIndexOfDepot(Map<Integer, LocationDTO> indexedLocations, LocationDTO depot) {
         return indexedLocations
                 .entrySet()
                 .stream()
@@ -56,18 +57,18 @@ public class TSPDataMapper {
                 .orElseThrow(() -> new NoSuchElementException("Missing depot location in indexed locations"));
     }
 
-    private long[][] getDistanceMatrix(Map<Integer, Location> indexedLocations, OptimizedStepsRequest optimizedStepsRequest) {
+    private long[][] getDistanceMatrix(Map<Integer, LocationDTO> indexedLocations, OptimizedStepsRequest optimizedStepsRequest) {
         final int row = indexedLocations.size();
         long[][] distanceMatrix = new long[row][row];
         for(int i = 0; i<row; i++){
             for (int j = 0; j<row; j++){
-                final int indexOfStartLocation = i;
-                final int indexOfEndLocation = j;
+                int indexOfStartLocation = i;
+                int indexOfEndLocation = j;
                 distanceMatrix[i][j] = optimizedStepsRequest.getLocationConnections()
                         .stream()
                         .filter(s->s.getStartLocation().equals(indexedLocations.get(indexOfStartLocation)))
-                        .filter(s->s.getEndLocation().equals(indexedLocations.get(Integer.valueOf(indexOfEndLocation))))
-                        .map(LocationConnection::getTimeOnFootInSec)
+                        .filter(s->s.getEndLocation().equals(indexedLocations.get(indexOfEndLocation)))
+                        .map(LocationConnectionDTO::getTimeInMiliSeconds)
                         .findFirst()
                         .orElse(0);
             }

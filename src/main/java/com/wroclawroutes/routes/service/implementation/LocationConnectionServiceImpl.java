@@ -1,5 +1,6 @@
 package com.wroclawroutes.routes.service.implementation;
 
+import com.wroclawroutes.routes.dto.OptimizedStepsResponse;
 import com.wroclawroutes.routes.entity.Location;
 import com.wroclawroutes.routes.entity.LocationConnection;
 import com.wroclawroutes.routes.repository.LocationConnectionRepository;
@@ -40,4 +41,17 @@ public class LocationConnectionServiceImpl implements LocationConnectionService 
                 .orElseThrow(() -> new NoSuchElementException(("LocationConnection with startLocation id: %d, " +
                         "endLocation id: %d not found.").formatted(startLocation.getId(), endLocation.getId())));
     }
+
+    @Override
+    public LocationConnection findByStartLocation_LatitudeAndStartLocation_LongitudeAndEndLocation_LatitudeAndEndLocation_Longitude(
+            Double startLocationLatitude, Double startLocationLongitute,
+            Double endLocationLatitude, Double endLocationLongitute
+    ) {
+        return locationConnectionRepository
+                .findByStartLocation_LatitudeAndStartLocation_LongitudeAndEndLocation_LatitudeAndEndLocation_Longitude(
+                                startLocationLatitude, startLocationLongitute,endLocationLatitude,endLocationLongitute
+                )
+                .orElseThrow(() -> new NoSuchElementException("test"));
+    }
+
 }

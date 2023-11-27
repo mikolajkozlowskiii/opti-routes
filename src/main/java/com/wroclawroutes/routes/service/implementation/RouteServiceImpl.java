@@ -28,14 +28,17 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public Route findById(Long id) {
-        return routeRepository.findById(id).orElseThrow(() -> new RouteNotFoundException(id));
+        return routeRepository
+                .findById(id)
+                .orElseThrow(() -> new RouteNotFoundException(id));
     }
 
     @Override
     public Route findByIdFetchStepsEagerly(Long id) {
-        return routeRepository.findByIdFetchStepsEagerly(id).orElseThrow(() -> new RouteNotFoundException(id));
+        return routeRepository
+                .findByIdFetchStepsWithLocationsEagerly(id)
+                .orElseThrow(() -> new RouteNotFoundException(id));
     }
-
     @Override
     public List<Route> findAll() {
         return routeRepository.findAll();

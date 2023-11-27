@@ -14,7 +14,7 @@ public class RouteMapper {
     private final LocationMapper locationMapper;
     public ProposedRouteReponse map(OptimizedStepsResponse optimizedStepsResponse, Set<LocationConnection> locationConnections){
         return ProposedRouteReponse.builder()
-                .distanceInMeters(optimizedStepsResponse.getValue())
+                .distanceInMeters(optimizedStepsResponse.getTotalTimeInSeconds())
                 .timeInSeconds(null) // TODO
                 //.steps(optimizedStepsResponse.getOptimizedSteps())
                 .build();

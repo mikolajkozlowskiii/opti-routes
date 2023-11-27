@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import com.wroclawroutes.routes.entity.Route;
 import com.wroclawroutes.routes.entity.Tag;
+import com.wroclawroutes.routes.exceptions.RouteNotFoundException;
 import com.wroclawroutes.routes.repository.RouteRepository;
 import com.wroclawroutes.routes.service.implementation.RouteServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,34 @@ class RouteServiceImplTest {
     private RouteServiceImpl routeService;
     @Mock
     private RouteRepository routeRepository;
+    @Test
+    void findById_IdExistsInDB_ReturnsRoute() {
+        final Route expectedRoute = Route
+                .builder()
+                .id(1L)
+                .description("Description")
+                .distanceInMeters(1200)
+                .timeInSeconds(400)
+                .createdAt(LocalDateTime.of(2023,10,10,12,30))
+                .isPublic(true)
+                .build();
 
+        when(routeRepository.findById(anyLong())).thenReturn(Optional.of(expectedRoute));
+
+        final Route actualRoute = routeService.findById(anyLong());
+
+        assertEquals(expectedRoute, actualRoute);
+        verify(routeRepository, times(1)).findById(any());
+        verifyNoMoreInteractions(routeRepository);
+    }
+    @Test
+    void findById_IdDoesntExistsInDB_ThrownException() {
+        when(routeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(RouteNotFoundException.class, () -> routeService.findById(1L));
+        verify(routeRepository, times(1)).findById(any());
+        verifyNoMoreInteractions(routeRepository);
+    }
     @Test
     void save() {
         final Route route = Route
@@ -60,26 +88,7 @@ class RouteServiceImplTest {
         verify(routeRepository, times(1)).delete(route);
     }
 
-    @Test
-    void findById() {
-        final Route expectedRoute = Route
-                .builder()
-                .id(1L)
-                .description("Description")
-                .distanceInMeters(1200)
-                .timeInSeconds(400)
-                .createdAt(LocalDateTime.of(2023,10,10,12,30))
-                .isPublic(true)
-                .build();
 
-        when(routeRepository.findById(anyLong())).thenReturn(Optional.of(expectedRoute));
-
-        final Route actualRoute = routeService.findById(anyLong());
-
-        assertEquals(expectedRoute, actualRoute);
-        verify(routeRepository, times(1)).findById(any());
-        verifyNoMoreInteractions(routeRepository);
-    }
 
     @Test
     void findByIdFetchStepsEagerly() {
@@ -93,12 +102,12 @@ class RouteServiceImplTest {
                 .isPublic(true)
                 .build();
 
-        when(routeRepository.findByIdFetchStepsEagerly(anyLong())).thenReturn(Optional.of(expectedRoute));
+        when(routeRepository.findByIdFetchStepsWithLocationsEagerly(anyLong())).thenReturn(Optional.of(expectedRoute));
 
         final Route actualRoute = routeService.findByIdFetchStepsEagerly(anyLong());
 
         assertEquals(expectedRoute, actualRoute);
-        verify(routeRepository, times(1)).findByIdFetchStepsEagerly(any());
+        verify(routeRepository, times(1)).findByIdFetchStepsWithLocationsEagerly(any());
         verifyNoMoreInteractions(routeRepository);
     }
 

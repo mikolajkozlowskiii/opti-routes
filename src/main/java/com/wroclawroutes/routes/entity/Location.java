@@ -36,6 +36,7 @@ public class Location {
     private Double latitude;
     @NotNull
     private Double longitude;
+
     @OneToMany(mappedBy = "startLocation", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<LocationConnection> outgoingConnections = new HashSet<>();
     // TODO not sure about incomingConnections, check what happend when removed
@@ -57,11 +58,11 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Objects.equals(id, location.id);
+        return Objects.equals(name, location.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(name);
     }
 }

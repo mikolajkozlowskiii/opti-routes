@@ -12,5 +12,9 @@ import java.util.Optional;
 public interface LocationConnectionRepository extends JpaRepository<LocationConnection, Long> {
     Optional<LocationConnection> findById(Long id);
     Optional<LocationConnection> findByStartLocationAndEndLocation(Location startLocation, Location endLocation);
+    Optional<LocationConnection> findByStartLocation_LatitudeAndStartLocation_LongitudeAndEndLocation_LatitudeAndEndLocation_Longitude(
+            Double startLocationLatitude, Double startLocationLongitute,
+            Double endLocationLatitude, Double endLocationLongitute
+    );
     List<LocationConnection> findAllByStartLocation(Location startLocation);
 }

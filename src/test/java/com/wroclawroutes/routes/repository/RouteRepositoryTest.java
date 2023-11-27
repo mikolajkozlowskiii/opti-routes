@@ -29,9 +29,32 @@ public class RouteRepositoryTest {
     @Sql(value = "classpath:/input-data/import-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    public void findAllByTagsContainsFetchRatingsAndTagsEagerly_RoutesWithTags_ReturnsRoute() {
+        final List<Route> expectedRoutes = Set.of(2)
+                .stream()
+                .map(s -> entityManager.find(Route.class, s))
+                .toList();
+
+        final Tag firstTag = entityManager.find(Tag.class, 1L);
+        final Tag secondTag = entityManager.find(Tag.class, 2L);
+        final List<Route> actualRoutes =
+                routeRepository.findAllByOnlyTags(Set.of(firstTag, secondTag), 2);
+
+        assertTrue(CollectionUtils.isEqualCollection(expectedRoutes, actualRoutes));
+    }
+
+    @Test
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findById_RouteIdExistsInDB_ReturnsRoute() {
         final Route expectedRoute = entityManager.find(Route.class, 1L);
         final Route actualRoute = routeRepository.findById(1L).get();
+
 
         assertEquals(expectedRoute, actualRoute);
     }
@@ -46,8 +69,10 @@ public class RouteRepositoryTest {
     @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findByIdFetchStepsEagerly_RouteIdExistsInDB_ReturnsRoute() {
         final Route expectedRoute = entityManager.find(Route.class, 1L);
-        final Route actualRoute = routeRepository.findByIdFetchStepsEagerly(1L).get();
+        System.out.println("test12345");
+        final Route actualRoute = routeRepository.findByIdFetchStepsWithLocationsEagerly(1L).get();
 
+        actualRoute.getSteps().forEach(s-> System.out.println(s.getId()));
         assertEquals(expectedRoute, actualRoute);
     }
 
@@ -138,8 +163,7 @@ public class RouteRepositoryTest {
     public void findAllByAnyTagsContainsFetchRatingsAndTagsEagerly_RoutesWithTags_ReturnsRoute() {
         final List<Route> expectedRoutes = Set.of(1, 2)
                 .stream()
-                .map(s -> entityManager.find(Route.class, s))
-                .toList();
+                .map(s -> entityManager.find(Route.class, s)).toList();
 
         final Tag firstTag = entityManager.find(Tag.class, 1L);
         final Tag secondTag = entityManager.find(Tag.class, 2L);
@@ -149,25 +173,5 @@ public class RouteRepositoryTest {
         assertTrue(CollectionUtils.isEqualCollection(expectedRoutes, actualRoutes));
     }
 
-    @Test
-    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-routes.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-routes-steps.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-routes-ratings.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/input-data/import-routes-tags.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    public void findAllByTagsContainsFetchRatingsAndTagsEagerly_RoutesWithTags_ReturnsRoute() {
-        final List<Route> expectedRoutes = Set.of(2)
-                .stream()
-                .map(s -> entityManager.find(Route.class, s))
-                .toList();
 
-        final Tag firstTag = entityManager.find(Tag.class, 1L);
-        final Tag secondTag = entityManager.find(Tag.class, 2L);
-        final List<Route> actualRoutes =
-                routeRepository.findAllByOnlyTags(Set.of(firstTag, secondTag), 2);
-
-        assertTrue(CollectionUtils.isEqualCollection(expectedRoutes, actualRoutes));
-    }
 }

@@ -1,5 +1,6 @@
 package com.wroclawroutes.routes.service;
 
+import com.wroclawroutes.routes.dto.OptimizedStepsResponse;
 import com.wroclawroutes.routes.entity.Location;
 import com.wroclawroutes.routes.entity.LocationConnection;
 
@@ -11,4 +12,8 @@ public interface LocationConnectionService {
     List<LocationConnection> findAllByStartLocation(Location startLocation);
     Set<LocationConnection> findAllConnectionsBetweenLocations(Set<Location> locations);
     LocationConnection findByStartLocationAndEndLocation(Location startLocation, Location endLocation);
+    LocationConnection findByStartLocation_LatitudeAndStartLocation_LongitudeAndEndLocation_LatitudeAndEndLocation_Longitude(
+            Double startLocationLatitude, Double startLocationLongitute,
+            Double endLocationLatitude, Double endLocationLongitute
+    );
 }
