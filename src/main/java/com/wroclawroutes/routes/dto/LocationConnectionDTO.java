@@ -14,6 +14,7 @@ public class LocationConnectionDTO {
     private LocationDTO startLocation;
     private LocationDTO endLocation;
     private Integer timeInMiliSeconds;
+    private Integer distanceInMeters;
 
     @Override
     public boolean equals(Object o) {

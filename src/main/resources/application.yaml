@@ -23,6 +23,10 @@ spring:
             enable: true
 
 app:
+  graphhopperApi:
+    baseUrl: https://graphhopper.com/api/1/route
+    key: 16ae837b-bc08-4b2d-98ef-020f297a098b
+
   jwt:
     expirationTimeInMs: 43200000
     secret: ${JWT_SECRET}

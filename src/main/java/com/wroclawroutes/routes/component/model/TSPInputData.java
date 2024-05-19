@@ -8,5 +8,6 @@ import lombok.Data;
 public class TSPInputData {
     private long[][] distanceMatrix;
     private int indexOfDepot;
+    private int limitImprovingHeuristicInSeconds;
 }
 

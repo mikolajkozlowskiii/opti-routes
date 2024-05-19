@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LocationMapper {
-    public LocationDTO map(Location location){
+    public LocationDTO map(Location location) {
         return LocationDTO
                 .builder()
                 .name(location.getName())
@@ -16,13 +16,14 @@ public class LocationMapper {
                 .latitude(location.getLatitude())
                 .build();
     }
-//    public LocationResponse map(Location location){
-//        return LocationResponse
-//                .builder()
-//                .name(location.getName())
-//                .address(location.getAddress())
-//                .latitude(location.getLatitude())
-//                .longitude(location.getLongitude())
-//                .build();
-//    }
+
+    public Location map(LocationDTO locationDTO){
+        return Location
+                .builder()
+                .latitude(locationDTO.getLatitude())
+                .longitude(locationDTO.getLongitude())
+                .name(locationDTO.getName())
+                .address(locationDTO.getAddress())
+                .build();
+    }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
+import com.wroclawroutes.routes.component.LocationConnectionAPI;
 import com.wroclawroutes.routes.entity.Route;
 import com.wroclawroutes.routes.entity.Tag;
 import com.wroclawroutes.routes.exceptions.RouteNotFoundException;
@@ -27,6 +28,41 @@ class RouteServiceImplTest {
     private RouteServiceImpl routeService;
     @Mock
     private RouteRepository routeRepository;
+    @Mock
+    private RouteStepService routeStepService;
+    @Mock
+    private LocationConnectionAPI locationConnectionAPI;
+    @Test
+    void findByIdFetchAllRelationships_IdExistsInDB_ReturnsRoute() {
+        final Route expectedRoute = Route
+                .builder()
+                .id(1L)
+                .description("Description")
+                .distanceInMeters(1200)
+                .timeInMilliseconds(400)
+                .createdAt(LocalDateTime.of(2023,10,10,12,30))
+                .isPublic(true)
+                .build();
+
+        when(routeRepository.findByIdFetchAllRelationships(anyLong())).thenReturn(Optional.of(expectedRoute));
+
+        final Route actualRoute = routeService.findByIdFetchAllRelationships(anyLong());
+
+        assertEquals(expectedRoute, actualRoute);
+        verify(routeRepository, times(1)).findByIdFetchAllRelationships(any());
+        verifyNoMoreInteractions(routeRepository);
+    }
+    @Test
+    void findByIdFetchAllRelationships_IdDoesntExistsInDB_ThrownException() {
+        when(routeRepository.findByIdFetchAllRelationships(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(RouteNotFoundException.class, () -> routeService.findByIdFetchAllRelationships(1L));
+        verify(routeRepository, times(1)).findByIdFetchAllRelationships(any());
+        verifyNoMoreInteractions(routeRepository);
+    }
+
+
+
     @Test
     void findById_IdExistsInDB_ReturnsRoute() {
         final Route expectedRoute = Route
@@ -34,7 +70,7 @@ class RouteServiceImplTest {
                 .id(1L)
                 .description("Description")
                 .distanceInMeters(1200)
-                .timeInSeconds(400)
+                .timeInMilliseconds(400)
                 .createdAt(LocalDateTime.of(2023,10,10,12,30))
                 .isPublic(true)
                 .build();
@@ -47,6 +83,7 @@ class RouteServiceImplTest {
         verify(routeRepository, times(1)).findById(any());
         verifyNoMoreInteractions(routeRepository);
     }
+
     @Test
     void findById_IdDoesntExistsInDB_ThrownException() {
         when(routeRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -62,7 +99,7 @@ class RouteServiceImplTest {
                 .id(1L)
                 .description("Description")
                 .distanceInMeters(1200)
-                .timeInSeconds(400)
+                .timeInMilliseconds(400)
                 .createdAt(LocalDateTime.of(2023,10,10,12,30))
                 .isPublic(true)
                 .build();
@@ -78,7 +115,7 @@ class RouteServiceImplTest {
                 .id(1L)
                 .description("Description")
                 .distanceInMeters(1200)
-                .timeInSeconds(400)
+                .timeInMilliseconds(400)
                 .createdAt(LocalDateTime.of(2023,10,10,12,30))
                 .isPublic(true)
                 .build();
@@ -97,7 +134,7 @@ class RouteServiceImplTest {
                 .id(1L)
                 .description("Description")
                 .distanceInMeters(1200)
-                .timeInSeconds(400)
+                .timeInMilliseconds(400)
                 .createdAt(LocalDateTime.of(2023,10,10,12,30))
                 .isPublic(true)
                 .build();
@@ -119,7 +156,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .build(),
@@ -128,7 +165,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .build()
@@ -150,7 +187,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .build(),
@@ -159,7 +196,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .build()
@@ -186,7 +223,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .tags(Set.of(tag))
@@ -196,7 +233,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .tags(Set.of(tag))
@@ -224,7 +261,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .tags(Set.of(tag))
@@ -234,7 +271,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .tags(Set.of(tag))
@@ -262,7 +299,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .tags(Set.of(tag))
@@ -272,7 +309,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .tags(Set.of(tag))
@@ -300,7 +337,7 @@ class RouteServiceImplTest {
                         .id(1L)
                         .description("Description")
                         .distanceInMeters(1200)
-                        .timeInSeconds(400)
+                        .timeInMilliseconds(400)
                         .createdAt(LocalDateTime.of(2023,10,10,12,30))
                         .isPublic(true)
                         .tags(Set.of(tag))
@@ -310,7 +347,7 @@ class RouteServiceImplTest {
                         .id(2L)
                         .description("Desc")
                         .distanceInMeters(3000)
-                        .timeInSeconds(800)
+                        .timeInMilliseconds(800)
                         .createdAt(LocalDateTime.of(2023,11,10,12,30))
                         .isPublic(false)
                         .tags(Set.of(tag))

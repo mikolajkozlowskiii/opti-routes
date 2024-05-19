@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface LocationService {
     Location save(Location location);
+
     void delete(Location location);
     Location findById(Long id);
     Location findByName(String name);

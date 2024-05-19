@@ -3,9 +3,6 @@ package com.wroclawroutes.routes.component.impl;
 import com.wroclawroutes.routes.component.model.TSPInputData;
 import com.wroclawroutes.routes.component.model.TSPOutputData;
 import com.wroclawroutes.routes.dto.*;
-import com.wroclawroutes.routes.entity.Location;
-import com.wroclawroutes.routes.entity.LocationConnection;
-import com.wroclawroutes.routes.service.mapper.LocationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,13 +24,14 @@ public class TSPDataMapper {
                 .builder()
                 .distanceMatrix(distanceMatrix)
                 .indexOfDepot(indexOfDepot)
+                .limitImprovingHeuristicInSeconds(optimizedStepsRequest.getLimitImprovingHeuristicInSeconds())
                 .build();
     }
 
     public OptimizedStepsResponse map(TSPOutputData outputData, Map<Integer, LocationDTO> indexedLocations){
-        final List<RouteStepResponse> optimizedSteps = IntStream.range(0, outputData.getOrderedIndexes().size())
+        final List<RouteStepDTO> optimizedSteps = IntStream.range(0, outputData.getOrderedIndexes().size())
                 .boxed()
-                .map(s-> RouteStepResponse
+                .map(s-> RouteStepDTO
                                 .builder()
                                 .location(indexedLocations.get(outputData.getOrderedIndexes().get(s)))
                                 .step(s)

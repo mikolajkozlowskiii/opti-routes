@@ -11,8 +11,10 @@ import java.util.List;
 @Builder
 @ToString
 public class OptimizedStepsResponse {
-    @JsonProperty("total_time_in_seconds")
+    @JsonProperty("total_time_in_milliseconds")
     private long totalTimeInSeconds;
+    @JsonProperty("distance_in_meters")
+    private long distanceInMeters;
     @JsonProperty("optimized_steps")
-    private List<RouteStepResponse> optimizedSteps;
+    private List<RouteStepDTO> optimizedSteps;
 }

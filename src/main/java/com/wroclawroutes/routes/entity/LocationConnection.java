@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(	name = "locations_connection",
+@Table(	name = "locations_connections",
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "UQ_start_end_locations",
@@ -33,8 +33,6 @@ public class LocationConnection {
     private Location endLocation;
     private Integer distanceInMeters;
     private Integer timeOnFootInSec;
-    private Integer timeByBusInSec;
-    private Integer timeByCarInSec;
 
     @PrePersist
     @PreUpdate

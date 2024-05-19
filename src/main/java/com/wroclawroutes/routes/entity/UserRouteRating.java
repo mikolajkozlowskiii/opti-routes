@@ -25,7 +25,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @ToString
-public class UserRouteRating {
+public class UserRouteRating implements Comparable<UserRouteRating>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -52,5 +52,10 @@ public class UserRouteRating {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(UserRouteRating o) {
+        return this.getCreatedAt().compareTo(o.getCreatedAt());
     }
 }

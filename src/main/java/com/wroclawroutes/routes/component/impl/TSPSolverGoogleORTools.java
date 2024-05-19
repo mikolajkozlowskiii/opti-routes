@@ -30,14 +30,25 @@ public class TSPSolverGoogleORTools implements TSPSolver {
 
         routing.setArcCostEvaluatorOfAllVehicles(transitCallbackIndex);
 
-        final RoutingSearchParameters searchParameters =
-                main.defaultRoutingSearchParameters()
-                        .toBuilder()
-                        .setFirstSolutionStrategy(FirstSolutionStrategy.Value.PATH_CHEAPEST_ARC)
-                        .setLocalSearchMetaheuristic(LocalSearchMetaheuristic.Value.SIMULATED_ANNEALING)
-                        .setTimeLimit(Duration.newBuilder().setSeconds(30).build())
-                        .setLogSearch(true)
-                        .build();
+        final RoutingSearchParameters searchParameters;
+        final int timeLimit = data.getLimitImprovingHeuristicInSeconds();
+        if(data.getLimitImprovingHeuristicInSeconds() > 0){
+            searchParameters = main.defaultRoutingSearchParameters()
+                    .toBuilder()
+                    .setFirstSolutionStrategy(FirstSolutionStrategy.Value.PATH_CHEAPEST_ARC)
+                    .setLocalSearchMetaheuristic(LocalSearchMetaheuristic.Value.SIMULATED_ANNEALING)
+                    .setTimeLimit(Duration.newBuilder().setSeconds(timeLimit).build())
+                    .setLogSearch(true)
+                    .build();
+        }
+        else {
+            searchParameters = main.defaultRoutingSearchParameters()
+                    .toBuilder()
+                    .setFirstSolutionStrategy(FirstSolutionStrategy.Value.PATH_CHEAPEST_ARC)
+                    .setLogSearch(true)
+                    .build();
+        }
+
         final Assignment solution = routing.solveWithParameters(searchParameters);
 
         final List<Integer> orderedIndexes = new ArrayList<>();

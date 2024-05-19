@@ -11,7 +11,10 @@ public interface RouteService {
     void delete(Route route);
     Route findById(Long id);
     Route findByIdFetchStepsEagerly(Long id);
+    Route findByIdFetchAllRelationships(Long id);
     List<Route> findAll();
+    List<Route> findAllFetchAllRelationships();
+    List<Route> findAllFetchAllRelationshipsByEmail(String email);
     List<Route> findAllFetchTagsAndRatingsEagerly();
     List<Route> findAllByTagsContains(Tag tag);
     List<Route> findAllByTagContainsFetchRatingsAndTagsEagerly(Tag tag);

@@ -9,6 +9,4 @@ import java.util.Set;
 
 public interface RouteOptimizationService {
     OptimizedStepsResponse getOptimizedRoute(RouteLocationsRequest routeLocationsRequest);
-    OptimizedStepsResponse getOptimizedRoute(Set<Location> locations, Location depot);
-    OptimizedStepsResponse getOptimizedRoute(Set<Long> locationsId, Long depotId);
 }

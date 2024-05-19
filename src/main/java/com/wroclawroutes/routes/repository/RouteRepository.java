@@ -16,6 +16,18 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
     Optional<Route> findById(Long id);
     @Query("SELECT r from Route r LEFT JOIN FETCH r.steps steps LEFT JOIN FETCH steps.location WHERE r.id=:id")
     Optional<Route> findByIdFetchStepsWithLocationsEagerly(@Param("id") Long id);
+    @Query("SELECT r from Route r LEFT JOIN FETCH r.steps steps LEFT JOIN FETCH steps.location")
+    List<Route> findAllFetchStepsWithLocationsEagerly();
+
+    @Query("SELECT r from Route r LEFT JOIN FETCH r.steps steps LEFT JOIN FETCH steps.location WHERE r.user.email=:email")
+    List<Route> findAllFetchStepsWithLocationsEagerlyByEmail(@Param("email") String email);
+    @Query("SELECT r from Route r " +
+            " LEFT JOIN FETCH r.steps steps" +
+            " LEFT JOIN FETCH steps.location" +
+            " LEFT JOIN FETCH r.tags" +
+            " LEFT JOIN FETCH r.user " +
+            " WHERE r.id=:id")
+    Optional<Route> findByIdFetchAllRelationships(@Param("id") Long id);
     List<Route> findAll();
     @Query("SELECT r from Route r LEFT JOIN FETCH r.ratings LEFT JOIN FETCH r.tags")
     List<Route> findAllFetchTagsAndRatingsEagerly();

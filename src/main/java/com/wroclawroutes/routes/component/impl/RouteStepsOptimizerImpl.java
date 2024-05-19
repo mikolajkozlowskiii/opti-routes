@@ -30,8 +30,7 @@ public class RouteStepsOptimizerImpl implements RouteStepsOptimizer {
         final Map<Integer, LocationDTO> indexedLocations = getIndexedLocations(locationConnections);
 
         final TSPInputData inputTSP = tspDataMapper.map(request, indexedLocations);
-int x = 4;
-int y = 23;
+
         final TSPOutputData outputTSP = tspSolver.solve(inputTSP);
         return tspDataMapper.map(outputTSP, indexedLocations);
     }

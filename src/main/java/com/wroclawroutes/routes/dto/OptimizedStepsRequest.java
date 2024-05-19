@@ -12,4 +12,5 @@ import java.util.Set;
 public class OptimizedStepsRequest {
     private LocationDTO depot;
     private Set<LocationConnectionDTO> locationConnections;
+    private int limitImprovingHeuristicInSeconds;
 }

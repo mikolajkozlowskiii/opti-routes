@@ -22,6 +22,7 @@ import java.util.*;
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
     private final LocationService locationService;
     private final LocationConnectionMapper locationConnectionMapper;
+    private final LocationConnectionService locationConnectionService;
     private final RouteStepsOptimizer routeStepsOptimizer;
     private final LocationMapper locationMapper;
     private final WebClient webClient;
@@ -75,8 +76,13 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
                 }
                 else{
                     try{
+//                        final LocationConnection locationConnection = locationConnectionService
+//        .findByStartLocation_LatitudeAndStartLocation_LongitudeAndEndLocation_LatitudeAndEndLocation_Longitude(
+//                                        startLocationRequest.getLatitude(), startLocationRequest.getLongitude(),
+//                                        endLocationRequest.getLatitude(), endLocationRequest.getLongitude()
+//                                );
+//                        locationConnectionsDTOs.add(locationConnectionMapper.map(locationConnection));
                         final PathData pathData = getPathDataFromExternalAPI(startLocationRequest, endLocationRequest);
-
                         final LocationConnection locationConnection = LocationConnection
                                 .builder()
                                 .startLocation(
@@ -136,9 +142,33 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
                 .builder()
                 .depot(depot)
                 .locationConnections(locationConnectionsDTOs)
+                .limitImprovingHeuristicInSeconds(routeLocationsRequest.getLimitImprovingHeuristicInSeconds())
                 .build();
 
-        return routeStepsOptimizer.getOptimizedSteps(request);
+        OptimizedStepsResponse optimizedSteps = routeStepsOptimizer.getOptimizedSteps(request);
+        optimizedSteps.setDistanceInMeters(getRouteDistance(optimizedSteps, locationConnectionsDTOs));
+
+        return optimizedSteps;
+    }
+
+    private int getRouteDistance(OptimizedStepsResponse optimizedSteps, Set<LocationConnectionDTO> locationConnectionsDTOs) {
+        int totalDistance = 0;
+        final List<LocationConnectionDTO> testList = new ArrayList<>();
+        for(int i = 0; i < optimizedSteps.getOptimizedSteps().size() -1; i++){
+            final LocationDTO startLocation = optimizedSteps.getOptimizedSteps().get(i).getLocation();
+            final LocationDTO endLocation = optimizedSteps.getOptimizedSteps().get(i+1).getLocation();
+
+
+            final LocationConnectionDTO locationConnection = locationConnectionsDTOs
+                    .stream()
+                    .filter(s->s.getStartLocation().equals(startLocation) && s.getEndLocation().equals(endLocation)).
+                    findFirst()
+                    .orElseThrow(NoSuchElementException::new);
+            totalDistance = totalDistance + locationConnection.getDistanceInMeters();
+            testList.add(locationConnection);
+        }
+        System.out.println(testList);
+        return totalDistance;
     }
 
     private PathData getPathDataFromExternalAPI(LocationDTO startLocationRequest, LocationDTO endLocationRequest) {
@@ -161,24 +191,5 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
                 .block();
     }
 
-    @Override
-    public OptimizedStepsResponse getOptimizedRoute(Set<Location> locations, Location depot) {
-//        final Set<LocationConnection> locationConnections =
-//                locationConnectionService.findAllConnectionsBetweenLocations(locations);
-//
-//        final OptimizedStepsRequest request = OptimizedStepsRequest
-//                .builder()
-//                .locationConnections(locationConnections)
-//                .depot(depot)
-//                .build();
-//
-//        return routeStepsOptimizer.getOptimizedSteps(request);
-        return null;
-    }
-
-    @Override
-    public OptimizedStepsResponse getOptimizedRoute(Set<Long> locationsId, Long depotId) {
-        return null;
-    }
 
 }

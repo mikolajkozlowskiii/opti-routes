@@ -12,6 +12,8 @@ import java.util.Optional;
 @Repository
 public interface UserRouteRatingRepository extends JpaRepository<UserRouteRating, Long> {
     Optional<UserRouteRating> findById(Long id);
+    Boolean existsByRouteAndUser(Route route, User user);
+    Optional<UserRouteRating> findByRouteAndUser(Route route, User user);
     List<UserRouteRating> findAllByUserOrderByCreatedAtDesc(User user);
     List<UserRouteRating> findAllByRoute(Route route);
 }

@@ -14,12 +14,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "confirmation_tokens")
 public class ConfirmationToken {
+    @Column(nullable = false)
+    private String token;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String token;
     @Column(nullable = false)
     private LocalDateTime createdAt;
     @Column(nullable = false)

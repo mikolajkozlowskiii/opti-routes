@@ -32,6 +32,7 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> findAllUsers(){
         return ResponseEntity.ok(userResponseService.findAllUsersResponse());
     }
+
     @GetMapping("/user-roles")
     public ResponseEntity<List<UserResponse>> findAllUserWithUserRole(){
         return ResponseEntity.ok(userResponseService.findAllUsersResponseWithOnlyUserRole());

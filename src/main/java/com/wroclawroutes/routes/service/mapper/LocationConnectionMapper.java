@@ -14,6 +14,7 @@ public class LocationConnectionMapper {
                 .startLocation(locationMapper.map(locationConnection.getStartLocation()))
                 .endLocation(locationMapper.map(locationConnection.getEndLocation()))
                 .timeInMiliSeconds(locationConnection.getTimeOnFootInSec())
+                .distanceInMeters(locationConnection.getDistanceInMeters())
                 .build();
     }
 }
