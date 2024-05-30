@@ -11,25 +11,36 @@ import com.wroclawroutes.routes.service.RouteOptimizationService;
 import com.wroclawroutes.routes.service.mapper.LocationConnectionMapper;
 import com.wroclawroutes.routes.service.mapper.LocationMapper;
 import com.wroclawroutes.routes.service.mapper.RouteMapper;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
-    private final LocationService locationService;
-    private final LocationConnectionMapper locationConnectionMapper;
-    private final LocationConnectionService locationConnectionService;
-    private final RouteStepsOptimizer routeStepsOptimizer;
-    private final LocationMapper locationMapper;
-    private final WebClient webClient;
+    private  LocationService locationService;
+    private  LocationConnectionMapper locationConnectionMapper;
+    private  LocationConnectionService locationConnectionService;
+    private  RouteStepsOptimizer routeStepsOptimizer;
+    private  LocationMapper locationMapper;
+    private  WebClient webClient;
+
+    public RouteOptimizationServiceImpl(LocationService locationService, LocationConnectionMapper locationConnectionMapper, LocationConnectionService locationConnectionService, RouteStepsOptimizer routeStepsOptimizer, LocationMapper locationMapper, @Qualifier("routeClient") WebClient webClient) {
+        this.locationService = locationService;
+        this.locationConnectionMapper = locationConnectionMapper;
+        this.locationConnectionService = locationConnectionService;
+        this.routeStepsOptimizer = routeStepsOptimizer;
+        this.locationMapper = locationMapper;
+        this.webClient = webClient;
+    }
 
     @Override
     public OptimizedStepsResponse getOptimizedRoute(RouteLocationsRequest routeLocationsRequest) {
         final Set<LocationDTO> locationsRequests = routeLocationsRequest.getLocations();
+
         final LocationDTO depotRequest = routeLocationsRequest.getDepot();
         LocationDTO depot;
 
@@ -191,5 +202,7 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
                 .block();
     }
 
+
+    //https://graphhopper.com/api/1/geocode?q=berlin&locale=de&key=api_key
 
 }

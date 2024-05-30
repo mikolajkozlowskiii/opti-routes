@@ -6,15 +6,19 @@ import com.wroclawroutes.routes.entity.Location;
 import com.wroclawroutes.routes.entity.LocationConnection;
 import com.wroclawroutes.routes.entity.RouteStep;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
 
 @Component
-@RequiredArgsConstructor
 public class GraphhoperAPI implements LocationConnectionAPI {
-    private final WebClient webClient;
+    private WebClient webClient;
+    public GraphhoperAPI(@Qualifier("routeClient") WebClient webClient) {
+        this.webClient = webClient;
+    }
     @Override
     public LocationConnection getLocationConnection(Location startPoint, Location endPoint) {
         final PathData pathData = getPathDataFromExternalAPI(startPoint, endPoint);

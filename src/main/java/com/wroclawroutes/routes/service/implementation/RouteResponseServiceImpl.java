@@ -9,12 +9,18 @@ import com.wroclawroutes.security.userdetails.UserDetailsImpl;
 import com.wroclawroutes.users.entities.User;
 import com.wroclawroutes.users.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
-@RequiredArgsConstructor
 public class RouteResponseServiceImpl implements RouteResponseService {
     private final RouteService routeService;
     private final RouteMapper routeMapper;
@@ -23,7 +29,75 @@ public class RouteResponseServiceImpl implements RouteResponseService {
     private final UserService userService;
     private final UserRouteRatingService userRouteRatingService;
     private final UserSavedRoutesService userSavedRoutesService;
+    private final RouteOptimizationService routeOptimizationService;
 
+    private final WebClient webClient;
+
+    public RouteResponseServiceImpl(RouteService routeService, RouteMapper routeMapper, RouteStepService routeStepService, TagService tagService, UserService userService, UserRouteRatingService userRouteRatingService, UserSavedRoutesService userSavedRoutesService, RouteOptimizationService routeOptimizationService,  @Qualifier("reverseGeocodingClient") WebClient webClient) {
+        this.routeService = routeService;
+        this.routeMapper = routeMapper;
+        this.routeStepService = routeStepService;
+        this.tagService = tagService;
+        this.userService = userService;
+        this.userRouteRatingService = userRouteRatingService;
+        this.userSavedRoutesService = userSavedRoutesService;
+        this.routeOptimizationService = routeOptimizationService;
+        this.webClient = webClient;
+    }
+
+    @Override
+    public RouteResponse createRouteWithOptimization(RouteRequest route, UserDetailsImpl userDetails) {
+        if(route.isOptimized()){
+            route = optimizeRoute(route);
+        }
+        return save(route, userDetails);
+    }
+
+    private RouteRequest optimizeRoute(RouteRequest route) {
+        final Set<LocationDTO> locationDTOS = route.getLocationsSteps().stream().map(RouteStepDTO::getLocation).collect(Collectors.toSet());
+
+
+        final Set<LocationDTO> locationsRequests = new HashSet<>();
+        for(LocationDTO locationDTO : locationDTOS){
+            if(StringUtils.isEmpty(locationDTO.getName())){
+                locationsRequests.add(getLocationNameAndAddress(locationDTO));
+            } else {
+                locationsRequests.add(locationDTO);
+            }
+        }
+
+        LocationDTO depot;
+        if(StringUtils.isEmpty(route.getDepot().getName())){
+            depot = getLocationNameAndAddress(route.getDepot());
+        } else {
+            depot = route.getDepot();
+        }
+
+
+
+            final OptimizedStepsResponse optimizedStepsResponse = routeOptimizationService.getOptimizedRoute(
+                    RouteLocationsRequest
+                            .builder()
+                            .locations(locationsRequests)
+                            .depot(depot)
+                            .build());
+
+            return RouteRequest
+                    .builder()
+                    .isOptimized(route.isOptimized())
+                    .description(route.getDescription())
+                    .locationsSteps(new HashSet<>(optimizedStepsResponse.getOptimizedSteps()))
+                    .tags(route.getTags())
+                    .isOptimized(route.isPublic())
+                    .build();
+
+    }
+
+    private void checkStepsEnumeration(RouteRequest route) {
+        if(!route.getLocationsSteps().contains(RouteStepDTO.builder().step(0).build())){
+            route.getLocationsSteps().forEach(s->s.setStep(s.getStep()-1));
+        }
+    }
 
     @Override
     public RouteResponse save(RouteRequest routeRequest, UserDetailsImpl userDetails) {
@@ -87,7 +161,6 @@ public class RouteResponseServiceImpl implements RouteResponseService {
 
     @Override
     public RouteResponse findResponseById(Long id) {
-        System.out.println("WYSLANE ZAPYTANIE");
         return routeMapper.mapToRouteResponse(routeService.findByIdFetchAllRelationships(id));
     }
 
@@ -187,5 +260,38 @@ public class RouteResponseServiceImpl implements RouteResponseService {
     @Override
     public List<Route> findAllByOnlyTags(Set<Tag> tags) {
         return null;
+    }
+
+    private LocationDTO getLocationNameAndAddress(LocationDTO locationDTO) {
+        final String point = "%s,%s".formatted(locationDTO.getLatitude(),
+                locationDTO.getLongitude());
+
+
+        // CHAGE BASE ADDRES FOR THIS AND FOR EHTH4ER
+        final ReverseGeocodingResponse response = webClient
+                .get()
+                .uri(
+                        uriBuilder -> uriBuilder
+                                .queryParam("point", point)
+                                .queryParam("reverse", true)
+                                .build()
+                )
+                .retrieve()
+                .bodyToMono(ReverseGeocodingResponse.class)
+                .block();
+
+        final ReverseGeocodingLocation reverseGeocodingLocation = response
+                .getHits()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Location name and address not found."));
+
+        return LocationDTO
+                .builder()
+                .latitude(locationDTO.getLatitude())
+                .longitude(locationDTO.getLongitude())
+                .address(reverseGeocodingLocation.getAddress())
+                .name(reverseGeocodingLocation.getName())
+                .build();
     }
 }

@@ -41,7 +41,7 @@ public class UserRouteSavedRepositoryTest {
                 .map(s -> entityManager.find(UserRouteSaved.class, s))
                 .toList();
 
-        final List<UserRouteSaved> actualUserRoutesSaved= userRouteSavedRepository.findAllByUserOrderByCreatedAt(user);
+        final List<UserRouteSaved> actualUserRoutesSaved= userRouteSavedRepository.findAllByUserOrderByCreatedAtDesc(user);
 
         assertEquals(expectedUserRoutesSaved, actualUserRoutesSaved);
     }

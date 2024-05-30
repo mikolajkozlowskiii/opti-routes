@@ -2,8 +2,8 @@ package com.wroclawroutes.routes.controllers;
 
 import com.wroclawroutes.app.dto.ApiResponse;
 import com.wroclawroutes.routes.dto.RatingRequest;
-import com.wroclawroutes.routes.dto.RouteStatsResponse;
 import com.wroclawroutes.routes.dto.UserRouteRatingResponse;
+import com.wroclawroutes.routes.dto.UserRouteSavedResponse;
 import com.wroclawroutes.routes.service.UserRouteRatingService;
 import com.wroclawroutes.routes.service.UserSavedRoutesService;
 import com.wroclawroutes.security.userdetails.CurrentUser;
@@ -77,13 +77,13 @@ public class UserActivityController {
         return ResponseEntity.ok(apiResponse);
     }
 
-    @GetMapping("user-author/details/saves")
+    @GetMapping("user-author/details/rating")
     public ResponseEntity<List<UserRouteRatingResponse>> findAllSavedByCurrentUserWithDetails(@CurrentUser UserDetailsImpl currentUser){
-        return ResponseEntity.ok(userRouteRatingService.findAllStatsResponseByAuthorCurrentUser(currentUser));
+        return ResponseEntity.ok(userRouteRatingService.findUserRouteRatingResponsesByUser(currentUser));
     }
 
-//    @GetMapping("user-author/details/rating")
-//    public ResponseEntity<List<RouteStatsResponse>> findAllRatedByCurrentUserWithDetails(@CurrentUser UserDetailsImpl currentUser){
-//        return ResponseEntity.ok(userRouteRatingService.findAllStatsResponseByAuthorCurrentUser(currentUser));
-//    }
+    @GetMapping("user-author/details/saves")
+    public ResponseEntity<List<UserRouteSavedResponse>> findAllRatedByCurrentUserWithDetails(@CurrentUser UserDetailsImpl currentUser){
+        return ResponseEntity.ok(userSavedRoutesService.findUserRouteSavedResponseByUser(currentUser));
+    }
 }

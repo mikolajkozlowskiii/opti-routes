@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface RouteResponseService {
+    RouteResponse createRouteWithOptimization(RouteRequest route, UserDetailsImpl userDetails);
     RouteResponse save(RouteRequest route, UserDetailsImpl userDetails);
     void deleteById(Long id);
     void delete(Route route, UserDetailsImpl userDetails);
@@ -29,5 +30,4 @@ public interface RouteResponseService {
     List<Route> findAllByTagContainsFetchRatingsAndTagsEagerly(Tag tag);
     List<Route> findAllByAnyTagsContainsFetchRatingsAndTagsEagerly(Set<Tag> tag);
     List<Route> findAllByOnlyTags(Set<Tag> tags);
-
 }

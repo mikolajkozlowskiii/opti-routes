@@ -21,9 +21,12 @@ import java.util.Set;
 public class RouteRequest {
     @JsonProperty("locations_steps")
     private Set<RouteStepDTO> locationsSteps;
+    private LocationDTO depot;
     private Set<TagDTO> tags;
     @Length(max = 250)
     private String description;
     @JsonProperty("is_public")
     private boolean isPublic;
+    @JsonProperty("is_optimized")
+    private boolean isOptimized;
 }

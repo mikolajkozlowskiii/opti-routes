@@ -1,11 +1,14 @@
 package com.wroclawroutes.routes.service.implementation;
 
 import com.wroclawroutes.app.dto.ApiResponse;
+import com.wroclawroutes.routes.dto.UserRouteSavedResponse;
 import com.wroclawroutes.routes.entity.Route;
 import com.wroclawroutes.routes.entity.UserRouteSaved;
 import com.wroclawroutes.routes.repository.UserRouteSavedRepository;
 import com.wroclawroutes.routes.service.RouteService;
+import com.wroclawroutes.routes.service.UserRouteRatingService;
 import com.wroclawroutes.routes.service.UserSavedRoutesService;
+import com.wroclawroutes.routes.service.mapper.UserActivityMapper;
 import com.wroclawroutes.security.userdetails.UserDetailsImpl;
 import com.wroclawroutes.users.entities.User;
 import com.wroclawroutes.users.services.UserService;
@@ -20,8 +23,11 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class UserSavedRoutesServiceImpl implements UserSavedRoutesService {
     private final UserRouteSavedRepository userRouteSavedRepository;
+   // private final UserRouteRatingService userRouteRatingService;
     private final RouteService routeService;
     private final UserService userService;
+    private final UserRouteRatingService userRouteRatingService;
+    private final UserActivityMapper userActivityMapper;
     @Override
     public ApiResponse save(UserDetailsImpl currentUser, Long routeId) {
         final Route route = routeService.findById(routeId);
@@ -59,7 +65,23 @@ public class UserSavedRoutesServiceImpl implements UserSavedRoutesService {
 
     @Override
     public List<UserRouteSaved> findAllByUserOrderByCreatedAt(User user) {
-        return null;
+        return userRouteSavedRepository.findAllByUserOrderByCreatedAtDesc(user);
+    }
+
+    @Override
+    public List<UserRouteSavedResponse> findUserRouteSavedResponseByUser(UserDetailsImpl currentUser) {
+        final User user = userService.getCurrentUser(currentUser);
+        final List<UserRouteSaved> userRoutesSaved = findAllByUserOrderByCreatedAt(user);
+        return userRoutesSaved
+                .stream()
+                .map(
+                        s->userActivityMapper
+                        .mapUserRouteSavedResponse(
+                                s,
+                                userRouteRatingService.getAllUsersRouteRatingResponseByRoute(s.getRoute()),
+                                userRouteRatingService.getGuideUsersRouteRatingResponseByRoute(s.getRoute())
+                        )
+                ).toList();
     }
 
     @Override

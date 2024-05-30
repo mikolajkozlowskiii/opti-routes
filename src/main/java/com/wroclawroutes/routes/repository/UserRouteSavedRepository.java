@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface UserRouteSavedRepository extends JpaRepository<UserRouteSaved, Long> {
     Optional<UserRouteSaved> findById(Long id);
     Optional<UserRouteSaved> findByUserAndRoute(User user, Route route);
-    List<UserRouteSaved> findAllByUserOrderByCreatedAt(User user);
+    List<UserRouteSaved> findAllByUserOrderByCreatedAtDesc(User user);
     Boolean existsByRouteAndUser(Route route, User user);
 }

@@ -28,9 +28,9 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String name;
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String address;
     @NotNull
     private Double latitude;

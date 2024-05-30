@@ -25,7 +25,8 @@ spring:
 app:
   graphhopperApi:
     baseUrl: https://graphhopper.com/api/1/route
-    key: 16ae837b-bc08-4b2d-98ef-020f297a098b
+    reverseGeoCoding: https://graphhopper.com/api/1/geocode
+    key: 14b29de4-309c-4f4f-bc2d-6eb24259d4e7
 
   jwt:
     expirationTimeInMs: 43200000

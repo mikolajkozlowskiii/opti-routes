@@ -3,27 +3,23 @@ package com.wroclawroutes.routes.service.implementation;
 import com.wroclawroutes.app.dto.ApiResponse;
 import com.wroclawroutes.routes.dto.RatingRequest;
 import com.wroclawroutes.routes.dto.RouteRatingsResponse;
-import com.wroclawroutes.routes.dto.UserRatingResponse;
 import com.wroclawroutes.routes.dto.UserRouteRatingResponse;
 import com.wroclawroutes.routes.entity.Route;
 import com.wroclawroutes.routes.entity.UserRouteRating;
 import com.wroclawroutes.routes.repository.UserRouteRatingRepository;
 import com.wroclawroutes.routes.service.RouteService;
 import com.wroclawroutes.routes.service.UserRouteRatingService;
-import com.wroclawroutes.routes.service.mapper.UserRatingResponseMapper;
+import com.wroclawroutes.routes.service.mapper.UserActivityMapper;
 import com.wroclawroutes.security.userdetails.UserDetailsImpl;
 import com.wroclawroutes.users.entities.ERole;
 import com.wroclawroutes.users.entities.Role;
 import com.wroclawroutes.users.entities.User;
 import com.wroclawroutes.users.services.RoleService;
 import com.wroclawroutes.users.services.UserService;
-import com.wroclawroutes.users.services.components.UserMapper;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +31,7 @@ public class UserRouteRatingServiceImpl implements UserRouteRatingService {
     private final UserRouteRatingRepository userRouteRatingRepository;
     private final UserService userService;
     private final RouteService routeService;
-    private final UserRatingResponseMapper userRatingResponseMapper;
+    private final UserActivityMapper userActivityMapper;
     private final RoleService roleService;
     @Override
     public List<UserRouteRating> findAllByUserOrderByCreatedAtDesc(User user) {
@@ -48,10 +44,10 @@ public class UserRouteRatingServiceImpl implements UserRouteRatingService {
     }
 
     @Override
-    public List<UserRouteRatingResponse> findAllStatsResponseByAuthorCurrentUser(UserDetailsImpl currentUser) {
+    public List<UserRouteRatingResponse> findUserRouteRatingResponsesByUser(UserDetailsImpl currentUser) {
         final User user = userService.getCurrentUser(currentUser);
         final List<UserRouteRating> userRouteRatings = userRouteRatingRepository.findAllByUserOrderByCreatedAtDesc(user);
-        return userRouteRatings.stream().map(userRatingResponseMapper::map).toList();
+        return userRouteRatings.stream().map(s-> userActivityMapper.mapToUserRouteRatingResponse(s, getAllUsersRouteRatingResponseByRoute(s.getRoute()), getGuideUsersRouteRatingResponseByRoute(s.getRoute()))).toList();
     }
 
     @Override
@@ -80,7 +76,7 @@ public class UserRouteRatingServiceImpl implements UserRouteRatingService {
         return RouteRatingsResponse
                 .builder()
                 .averageRating(average)
-                .userRatingResponse(ratings.stream().map(userRatingResponseMapper::mapToUserRatingResponse).toList())
+                .userRatingResponse(ratings.stream().map(userActivityMapper::mapToUserRatingResponse).toList())
                 .build();
     }
 

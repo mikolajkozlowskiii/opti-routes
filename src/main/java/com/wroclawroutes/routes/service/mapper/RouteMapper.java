@@ -64,6 +64,9 @@ public class RouteMapper {
         Collections.sort(tagDTOs);
         return RouteStatsResponse
                 .builder()
+                .isPublic(route.getIsPublic())
+                .tags(tagDTOs)
+
                 .build();
     }
 }

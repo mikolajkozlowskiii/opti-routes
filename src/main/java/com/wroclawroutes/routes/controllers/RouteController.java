@@ -31,6 +31,13 @@ public class RouteController {
         return ResponseEntity.ok(routeResponseService.save(routeRequest, currentUser));
     }
 
+    @PostMapping("/opti")
+    public ResponseEntity<RouteResponse> createRouteWithOptimization(@RequestBody @Valid RouteRequest routeRequest,
+                                                                     @CurrentUser UserDetailsImpl currentUser){
+        return ResponseEntity.ok(routeResponseService.createRouteWithOptimization(routeRequest, currentUser));
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<RouteResponse> findById(@PathVariable Long id){
         return ResponseEntity.ok(routeResponseService.findResponseById(id));
