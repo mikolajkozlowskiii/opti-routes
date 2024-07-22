@@ -93,6 +93,6 @@ public class UserSavedRoutesServiceImpl implements UserSavedRoutesService {
 
     @Override
     public long numberOfRouteSavedTimes(Route route) {
-        return userRouteSavedRepository.count();
+        return route.getUsersSavedRoutes().size();
     }
 }

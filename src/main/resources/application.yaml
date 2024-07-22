@@ -6,15 +6,15 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${WRO_DB_URL}
-    username: ${WRO_DB_USERNAME}
-    password: ${WRO_DB_PASSWORD}
+    url: ${OPTI_DB_URL}
+    username: ${OPTI_DB_USERNAME}
+    password: ${OPTI_DB_PASSWORD}
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${WRO_MAIL_USERNAME}
-    password: ${WRO_MAIL_PASSWORD}
+    username: ${OPTI_MAIL_USERNAME}
+    password: ${OPTI_MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -26,7 +26,7 @@ app:
   graphhopperApi:
     baseUrl: https://graphhopper.com/api/1/route
     reverseGeoCoding: https://graphhopper.com/api/1/geocode
-    key: 14b29de4-309c-4f4f-bc2d-6eb24259d4e7
+    key: ${GRAPHHOPER_API_KEY}
 
   jwt:
     expirationTimeInMs: 43200000

@@ -63,16 +63,17 @@ public class UserRouteRatingServiceImpl implements UserRouteRatingService {
     @Override
     public RouteRatingsResponse getAllUsersRouteRatingResponseByRoute(Route route) {
         final Role roleUser = roleService.getRole(ERole.ROLE_USER);
+        final Role roleGuide = roleService.getRole(ERole.ROLE_GUIDE);
         final List<UserRouteRating> ratings = new ArrayList<>(findAllByRoute(route)
                 .stream()
-                .filter(s -> s.getUser().getRoles().contains(roleUser) && s.getUser().getRoles().size() == 1)
+                .filter(s -> s.getUser().getRoles().contains(roleUser) && !s.getUser().getRoles().contains(roleGuide))
                 .toList());
         Collections.sort(ratings);
         return getRouteRatingsResponse(ratings);
     }
 
     private RouteRatingsResponse getRouteRatingsResponse(List<UserRouteRating> ratings) {
-        final double average = ratings.stream().mapToDouble(s->s.getRating()).average().orElse(0);
+        final double average = ratings.stream().mapToDouble(UserRouteRating::getRating).average().orElse(0);
         return RouteRatingsResponse
                 .builder()
                 .averageRating(average)
