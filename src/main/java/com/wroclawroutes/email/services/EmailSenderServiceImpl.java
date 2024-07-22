@@ -20,7 +20,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     @Override
     public void send(String to, String email) {
         try{
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            final MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper =
                     new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);

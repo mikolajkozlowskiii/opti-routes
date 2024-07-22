@@ -19,12 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class AuthorizationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationTokenFilter.class);
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -38,21 +38,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication); // set the current UserDetails in SecurityContext using setAuthentication(authentication) method.
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
             }
-        } catch (Exception e) {
-            logger.error("Cannot set user authentication: {0}", e);
+        } catch (Exception ex) {
+            LOGGER.error("Cannot set user authentication: {0}", ex);
         }
         filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {
-        final String headerAuth = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
+        final String headerAuthorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.hasText(headerAuthorization) && headerAuthorization.startsWith("Bearer ")) {
+            return headerAuthorization.substring(7);
         }
         return null;
     }
 }
+
+
 
 

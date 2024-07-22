@@ -4,7 +4,7 @@ import com.wroclawroutes.security.dto.JwtResponse;
 import com.wroclawroutes.security.dto.LoginRequest;
 import com.wroclawroutes.security.token.JwtUtils;
 import com.wroclawroutes.security.userdetails.UserDetailsImpl;
-import com.wroclawroutes.security.services.AuthService;
+import com.wroclawroutes.security.services.AuthenticationService;
 import com.wroclawroutes.security.services.components.JwtMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final JwtMapper jwtMapper;

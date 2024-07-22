@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(	name = "locations_connection",
+@Table(	name = "locations_connections",
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "UQ_start_end_locations",
@@ -33,8 +33,6 @@ public class LocationConnection {
     private Location endLocation;
     private Integer distanceInMeters;
     private Integer timeOnFootInSec;
-    private Integer timeByBusInSec;
-    private Integer timeByCarInSec;
 
     @PrePersist
     @PreUpdate
@@ -49,12 +47,12 @@ public class LocationConnection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LocationConnection that = (LocationConnection) o;
-        return id != null && Objects.equals(id, that.id);
+        return Objects.equals(startLocation, that.startLocation) && Objects.equals(endLocation, that.endLocation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(startLocation, endLocation);
     }
 }
 

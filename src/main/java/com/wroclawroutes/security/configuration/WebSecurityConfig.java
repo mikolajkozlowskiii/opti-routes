@@ -1,7 +1,7 @@
 package com.wroclawroutes.security.configuration;
 
 import com.wroclawroutes.security.token.AuthEntryPointJwt;
-import com.wroclawroutes.security.token.AuthTokenFilter;
+import com.wroclawroutes.security.token.AuthorizationTokenFilter;
 import com.wroclawroutes.security.userdetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,8 +33,8 @@ public class WebSecurityConfig {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter(){
-        return new AuthTokenFilter();
+    public AuthorizationTokenFilter authenticationJwtTokenFilter(){
+        return new AuthorizationTokenFilter();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -64,7 +64,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         s->s.requestMatchers("/api/v1/**").permitAll().anyRequest().authenticated()
                 )
-        .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider())
                 .formLogin()
                 .disable()
                 .httpBasic()

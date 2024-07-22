@@ -14,7 +14,11 @@ import java.util.Optional;
 @Repository
 public interface UserLocationLikedRepository extends JpaRepository<UserLocationLiked, Long> {
     Optional<UserLocationLiked> findById(Long id);
+    Optional<UserLocationLiked> findByUserAndLocation(User user, Location location);
+
     List<UserLocationLiked> findAllByUserOrderByCreatedAtAsc(User user);
+    List<UserLocationLiked> findAllByLocation(Location location);
+
     List<UserLocationLiked> findAllByUserOrderByCreatedAtDesc(User user);
     @Query("SELECT SUM(CASE WHEN ul.isLiked = TRUE THEN 1 ELSE -1 END) \n" +
             "FROM UserLocationLiked ul " +

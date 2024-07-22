@@ -1,5 +1,6 @@
 package com.wroclawroutes.routes.repository;
 
+import com.wroclawroutes.routes.entity.Route;
 import com.wroclawroutes.routes.entity.UserRouteSaved;
 import com.wroclawroutes.users.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UserRouteSavedRepository extends JpaRepository<UserRouteSaved, Long> {
     Optional<UserRouteSaved> findById(Long id);
-    List<UserRouteSaved> findAllByUserOrderByCreatedAt(User user);
+    Optional<UserRouteSaved> findByUserAndRoute(User user, Route route);
+    List<UserRouteSaved> findAllByUserOrderByCreatedAtDesc(User user);
+    Boolean existsByRouteAndUser(Route route, User user);
 }

@@ -16,14 +16,14 @@ values (5, 'Wrocławski Rynek', 'Rynek', 51.11068511994322, 17.030924671282094);
 insert into locations (id, name, address, latitude, longitude)
 values (6, 'Wroclavia', 'Sucha 1', 51.097887472078106, 17.034623266899263);
 
-INSERT INTO locations_connection (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec, time_by_bus_in_sec, time_by_car_in_sec)
-VALUES (1, 1, 2, 900, 300, 250, 120);
+INSERT INTO locations_connections (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec)
+VALUES (1, 1, 2, 900, 300);
 
-INSERT INTO locations_connection (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec, time_by_bus_in_sec, time_by_car_in_sec)
-VALUES (2, 1, 3, 900, 300, 250, 120);
+INSERT INTO locations_connections (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec)
+VALUES (2, 1, 3, 900, 300);
 
-INSERT INTO locations_connection (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec, time_by_bus_in_sec, time_by_car_in_sec)
-VALUES (3, 2, 3, 900, 300, 250, 120);
+INSERT INTO locations_connections (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec)
+VALUES (3, 2, 3, 900, 300);
 
-INSERT INTO locations_connection (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec, time_by_bus_in_sec, time_by_car_in_sec)
-VALUES (4, 3, 2, 900, 300, 250, 120);
+INSERT INTO locations_connections (id, start_location_id, end_location_id, distance_in_meters, time_on_foot_in_sec)
+VALUES (4, 3, 2, 900, 300);

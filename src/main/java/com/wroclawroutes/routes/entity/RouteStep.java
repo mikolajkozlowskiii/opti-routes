@@ -1,5 +1,6 @@
 package com.wroclawroutes.routes.entity;
 
+import com.wroclawroutes.routes.dto.RouteStepDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,7 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @ToString
-public class RouteStep {
+public class RouteStep implements Comparable<RouteStep> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +30,6 @@ public class RouteStep {
     @JoinColumn(name = "route_id")
     private Route route;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
     private Location location;
     @NotNull
     private Integer step;
@@ -38,12 +38,17 @@ public class RouteStep {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RouteStep routeStep = (RouteStep) o;
-        return Objects.equals(id, routeStep.id);
+        RouteStep step1 = (RouteStep) o;
+        return Objects.equals(location, step1.location) && Objects.equals(step, step1.step);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(location, step);
+    }
+
+    @Override
+    public int compareTo(RouteStep o) {
+        return this.step.compareTo(o.getStep());
     }
 }

@@ -23,7 +23,7 @@ public class ConfirmationTokenServiceImpl {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     @Value(value = "${app.mail.expirationTimeInMin}")
     private int expirationTimeInMin;
-    @Value(value = "${app.mail.confrimationLink}")
+    @Value(value = "${app.mail.confirmationLink}")
     private String confrimationLink;
     public void saveConfirmationToken(ConfirmationToken token){
         confirmationTokenRepository.save(token);
@@ -142,7 +142,7 @@ public class ConfirmationTokenServiceImpl {
                 "        \n" +
                 "                <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-collapse:collapse\">\n" +
                 "                  <tbody><tr>\n" +
-                "                    <td bgcolor=\"#1D70B8\" width=\"100%\" height=\"10\"></td>\n" +
+                "                    <td bgcolor=\"##ffd11a\" width=\"100%\" height=\"10\"></td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
                 "        \n" +
@@ -161,7 +161,7 @@ public class ConfirmationTokenServiceImpl {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + firstNameOfUser + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + firstNameOfUser + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering in Wroclaw Routes. Please click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>We wish you a successful route creation! </p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

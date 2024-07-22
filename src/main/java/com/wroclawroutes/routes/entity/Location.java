@@ -28,14 +28,15 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String name;
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String address;
     @NotNull
     private Double latitude;
     @NotNull
     private Double longitude;
+
     @OneToMany(mappedBy = "startLocation", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<LocationConnection> outgoingConnections = new HashSet<>();
     // TODO not sure about incomingConnections, check what happend when removed
@@ -57,11 +58,11 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Objects.equals(id, location.id);
+        return Objects.equals(name, location.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(name);
     }
 }

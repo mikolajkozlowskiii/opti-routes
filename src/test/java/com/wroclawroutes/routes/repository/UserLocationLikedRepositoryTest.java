@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @DataJpaTest
@@ -26,11 +27,11 @@ public class UserLocationLikedRepositoryTest {
     private UserLocationLikedRepository userLocationLikedRepository;
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void ffindById_LikesExistsInDB_ReturnsUserLocationLikedEntity() {
         final UserLocationLiked expectedUserLocationLiked = entityManager.find(UserLocationLiked.class, 1L);
         final UserLocationLiked actualUserLocationLiked = userLocationLikedRepository.findById(1L).get();
@@ -39,14 +40,14 @@ public class UserLocationLikedRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByUserOrderByCreatedAtAsc_TagIdExistsInDB_ReturnsRoute() {
         final User user = entityManager.find(User.class, 1L);
-        final List<UserLocationLiked> expectedUserLocationLiked = List.of(1, 6, 4, 3, 5, 2)
+        final List<UserLocationLiked> expectedUserLocationLiked = List.of(1, 4, 3, 5, 2)
                 .stream()
                 .map(s -> entityManager.find(UserLocationLiked.class, s))
                 .toList();
@@ -56,14 +57,14 @@ public class UserLocationLikedRepositoryTest {
     }
 
     @Test
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void findAllByUserOrderByCreatedAtDesc_LikesExistsInDB_ReturnsUserLocationLikes() {
         final User user = entityManager.find(User.class, 1L);
-        final List<UserLocationLiked> expectedUserLocationLiked = List.of(2, 5, 3, 4, 6, 1)
+        final List<UserLocationLiked> expectedUserLocationLiked = List.of(2, 5, 3, 4, 1)
                 .stream()
                 .map(s -> entityManager.find(UserLocationLiked.class, s))
                 .toList();
@@ -85,11 +86,11 @@ public class UserLocationLikedRepositoryTest {
 
     @ParameterizedTest
     @MethodSource("provideLocationIdInputWithLikesCountResult")
-    @Sql(value = "classpath:/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "classpath:/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-users-roles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-locations-connections.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "classpath:/input-data/import-user-location-liked.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     public void countLikedLocation_EntitiesExistsInDB_ReturnsNumOfLocationLikes(Long inputLocationId, Long expectedLikesCount) {
         final Location location = entityManager.find(Location.class, inputLocationId);
 

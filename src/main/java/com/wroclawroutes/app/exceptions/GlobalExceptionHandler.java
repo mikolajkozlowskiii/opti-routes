@@ -1,6 +1,7 @@
 package com.wroclawroutes.app.exceptions;
 
 
+import com.wroclawroutes.routes.exceptions.RouteNotFoundException;
 import com.wroclawroutes.users.exceptions.RoleNotFoundException;
 import com.wroclawroutes.users.exceptions.UserNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -21,7 +22,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler({
             RoleNotFoundException.class,
-            UserNotFoundException.class})
+            UserNotFoundException.class,
+            RouteNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseStatusException hadnleNotFound(RuntimeException ex) {
         return new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
