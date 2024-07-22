@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>wroclaw-routes</artifactId>
+    <artifactId>opti-routes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>wroclaw-routes</name>
     <description>wroclaw-routes</description>
