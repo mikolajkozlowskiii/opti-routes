@@ -51,8 +51,9 @@ This is a comparison on specific route of distances between locations. Distances
 
 ## Entity Relationship Diagram 
 
+![whiteDiagram (1)](https://github.com/user-attachments/assets/c39d9fbe-cbe4-40f3-9ff1-9e340d94a3f7)
 
-https://github.com/user-attachments/assets/92a8f548-5404-4177-83c9-a5fe7000a0ba
+
 
 
 ## Room for Improvment
