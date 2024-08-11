@@ -1,0 +1,16 @@
+.card-header {
+    font-style: normal;
+    font-weight:bolder;
+    font-family: Monaco;
+    /* Styl dla card-header, na wypadek gdybyś chciał dostosować coś więcej */
+  }
+  
+  .card-header h1 {
+    font-style: normal;
+    font-size: 25px;
+    text-align: center;
+    font-weight:bolder;
+    font-family: Monaco;
+    /* Styl dla card-header, na wypadek gdybyś chciał dostosować coś więcej */
+  }
+  

@@ -1,0 +1,193 @@
+.custom-row {
+    color: rgb(26, 106, 130);
+    font-weight: bolder;
+}
+
+.p-row {
+    color: rgb(26, 106, 130);
+    font-weight: bolder;
+}
+
+.btn-like{
+padding: 1px 1px;
+margin-bottom: 5px;
+}
+
+.like-image{
+    background-image: url("../../icon-like.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: auto;
+    height: auto;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.dislike-image{
+    background-image: url("../../icon-like.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: auto;
+    height: auto;
+    background-color: white;
+    margin-bottom: 10px;
+    transform: rotate(180deg);
+}
+
+
+
+.btn-save-route{
+margin-bottom: 5px;
+min-width: 350px;
+max-height: 20px;
+padding: 0;
+padding-bottom: 25px;
+}
+
+.btn-rate-route{
+    min-width: 50px;
+    min-height: 30px;
+    border-color:grey ;
+}
+
+.rate-row{
+    padding-top: 5px;
+}
+
+
+.map-wrap {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 77px); 
+  }
+  
+
+  
+  .watermark {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 999;
+  }
+
+
+  
+  .map {
+    width: 100%;
+    height: 100%; 
+    background-color: #f8f8f8;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+  }
+
+
+  mat-slider {
+    width: 100%
+  }
+
+  ::ng-deep .slow-transition .mat-slider-thumb-container,
+::ng-deep .slow-transition .mat-slider-track-wrapper {
+  transition: transform 1.5s ease-in-out, left 1.5s ease-in-out, width 1.5s ease-in-out;
+}
+
+.steps-container {
+    max-height: 150px; 
+    overflow-y: auto;
+  }
+  
+  .steps-container .row {
+    margin: 0;
+    padding: 0;
+  }
+
+
+
+.steps-container::-webkit-scrollbar {
+    width: 2px; 
+}
+
+.steps-container::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+.steps-container::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; 
+}
+
+.steps-container::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.steps-custom-card{
+    margin-top: 10px;
+}
+
+.example-card {
+    position: relative; 
+  }
+  
+  .top-right-button {
+    position: absolute;
+    top: 10px; 
+    right: 10px;
+  }
+  
+
+
+
+
+  .info-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .info-card mat-icon {
+    margin-right: 10px;
+    color: #007bff;
+  }
+  
+  .info-card .label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .tags mat-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .tags mat-chip {
+    margin: 2px;
+  }
+
+
+  .route-details-container {
+    padding: 20px;
+  }
+  
+  .detail-card {
+    margin: 10px;
+  }
+
+  
+  .tags mat-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .tags mat-chip {
+    margin: 2px;
+  }
+  
+
+  
+  .example-header-image {
+    background-image: url('https://static-00.iconduck.com/assets.00/avatar-default-light-icon-256x256-nyl11bbf.png');
+    background-size: cover;
+  }

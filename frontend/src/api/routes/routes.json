@@ -1,0 +1,254 @@
+[
+    {
+        "id": 25,
+        "description": "My favorite route when I arrive by train in Wroclaw for 6-7 hours. Delicious plant-based food, an interesting museum and the Renoma shopping center, which recently underwent renovations. You must experience it too!",
+        "author": {
+            "id": 21,
+            "email": "mikolajkozlowskiii@gmail.com",
+            "firstName": "Mikolaj",
+            "lastName": "Kozlowski",
+            "roles": [
+                "ROLE_USER"
+            ]
+        },
+        "usersRatings": {
+            "userRatingResponse": [
+                {
+                    "rate": 9,
+                    "user_email": "mikolajkozlowskiii@gmail.com",
+                    "rated_at": "2023-11-30T09:31:11Z"
+                },
+                {
+                    "rate": 8,
+                    "user_email": "259270@student.pwr.edu.pl",
+                    "rated_at": "2023-12-01T16:44:52Z"
+                }
+            ],
+            "average_rating": 8.5
+        },
+        "guideUsersRatings": {
+            "userRatingResponse": [
+                {
+                    "rate": 7,
+                    "user_email": "jan@wroclawskiznawca.com",
+                    "rated_at": "2023-12-01T16:34:20Z"
+                },
+                {
+                    "rate": 5,
+                    "user_email": "adrian@przewodnik.com",
+                    "rated_at": "2023-12-01T19:22:56Z"
+                }
+            ],
+            "average_rating": 6.0
+        },
+        "steps": [
+            {
+                "location": {
+                    "id": 10,
+                    "locationInfo": {
+                        "name": "Wrocław Mikołajów",
+                        "address": "Stacyjna 5, 53-613 Wrocław",
+                        "latitude": 51.11514641288738,
+                        "longitude": 16.99854109102061
+                    },
+                    "numOfLikes": 2
+                },
+                "step": 0
+            },
+            {
+                "location": {
+                    "id": 11,
+                    "locationInfo": {
+                        "name": "Wilk Syty,",
+                        "address": "Trzebnicka 3/1UL, 50-245 Wrocław",
+                        "latitude": 51.121063934376735,
+                        "longitude": 17.036503147406357
+                    },
+                    "numOfLikes": -1
+                },
+                "step": 1
+            },
+            {
+                "location": {
+                    "id": 7,
+                    "locationInfo": {
+                        "name": "Renoma",
+                        "address": "Świdnicka 40, 50-024 Wrocław",
+                        "latitude": 51.10367289563714,
+                        "longitude": 17.031302868664365
+                    },
+                    "numOfLikes": 1
+                },
+                "step": 2
+            },
+            {
+                "location": {
+                    "id": 9,
+                    "locationInfo": {
+                        "name": "Muzeum Iluzji",
+                        "address": "Staromłyńska 4, 50-266 Wrocław",
+                        "latitude": 51.115812595736145,
+                        "longitude": 17.039977309190043
+                    },
+                    "numOfLikes": 3
+                },
+                "step": 3
+            },
+            {
+                "location": {
+                    "id": 4,
+                    "locationInfo": {
+                        "name": "Dworzec Świebodzki",
+                        "address": "plac Orląt Lwowskich 20B, 53-605 Wrocław",
+                        "latitude": 51.108013553797974,
+                        "longitude": 17.020098150469902
+                    },
+                    "numOfLikes": 0
+                },
+                "step": 4
+            }
+        ],
+        "tags": [
+            {
+                "name": "GOOD FOOD"
+            },
+            {
+                "name": "MODERN"
+            },
+            {
+                "name": "NOT MANY TOURISTS"
+            }
+        ],
+        "created_at": "2023-11-29T20:00:55.806468",
+        "distance_in_meters": 9762,
+        "time_in_mili_seconds": 7060448,
+        "saved_times": 3,
+        "is_public": true
+    },
+    {
+        "id": 35,
+        "description": "Mangalica",
+        "author": {
+            "id": 21,
+            "email": "mikolajkozlowskiii@gmail.com",
+            "firstName": "John",
+            "lastName": "Spring",
+            "roles": [
+                "ROLE_USER"
+            ]
+        },
+        "usersRatings": {
+            "userRatingResponse": [
+                {
+                    "rate": 9,
+                    "user_email": "mikolajkozlowskiii@gmail.com",
+                    "rated_at": "2023-11-30T09:31:11Z"
+                },
+                {
+                    "rate": 8,
+                    "user_email": "259270@student.pwr.edu.pl",
+                    "rated_at": "2023-12-01T16:44:52Z"
+                }
+            ],
+            "average_rating": 10
+        },
+        "guideUsersRatings": {
+            "userRatingResponse": [
+                {
+                    "rate": 7,
+                    "user_email": "jan@wroclawskiznawca.com",
+                    "rated_at": "2023-12-01T16:34:20Z"
+                },
+                {
+                    "rate": 5,
+                    "user_email": "adrian@przewodnik.com",
+                    "rated_at": "2023-12-01T19:22:56Z"
+                }
+            ],
+            "average_rating": 9
+        },
+        "steps": [
+            {
+                "location": {
+                    "id": 10,
+                    "locationInfo": {
+                        "name": "Wrocław Mikołajów",
+                        "address": "Stacyjna 5, 53-613 Wrocław",
+                        "latitude": 51.11514641288738,
+                        "longitude": 16.99854109102061
+                    },
+                    "numOfLikes": 2
+                },
+                "step": 0
+            },
+            {
+                "location": {
+                    "id": 11,
+                    "locationInfo": {
+                        "name": "Wilk Syty,",
+                        "address": "Trzebnicka 3/1UL, 50-245 Wrocław",
+                        "latitude": 51.121063934376735,
+                        "longitude": 17.036503147406357
+                    },
+                    "numOfLikes": -1
+                },
+                "step": 1
+            },
+            {
+                "location": {
+                    "id": 7,
+                    "locationInfo": {
+                        "name": "Renoma",
+                        "address": "Świdnicka 40, 50-024 Wrocław",
+                        "latitude": 51.10367289563714,
+                        "longitude": 17.031302868664365
+                    },
+                    "numOfLikes": 1
+                },
+                "step": 2
+            },
+            {
+                "location": {
+                    "id": 9,
+                    "locationInfo": {
+                        "name": "Muzeum Iluzji",
+                        "address": "Staromłyńska 4, 50-266 Wrocław",
+                        "latitude": 51.115812595736145,
+                        "longitude": 17.039977309190043
+                    },
+                    "numOfLikes": 3
+                },
+                "step": 3
+            },
+            {
+                "location": {
+                    "id": 4,
+                    "locationInfo": {
+                        "name": "Dworzec Świebodzki",
+                        "address": "plac Orląt Lwowskich 20B, 53-605 Wrocław",
+                        "latitude": 51.108013553797974,
+                        "longitude": 17.020098150469902
+                    },
+                    "numOfLikes": 0
+                },
+                "step": 4
+            }
+        ],
+        "tags": [
+            {
+                "name": "GOOD FOOD"
+            },
+            {
+                "name": "MODERN"
+            },
+            {
+                "name": "NOT MANY TOURISTS"
+            }
+        ],
+        "created_at": "2023-11-29T20:00:55.806468",
+        "distance_in_meters": 9762,
+        "time_in_mili_seconds": 7060448,
+        "saved_times": 3,
+        "is_public": true
+    }
+]

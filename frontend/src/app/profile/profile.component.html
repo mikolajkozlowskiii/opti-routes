@@ -1,0 +1,70 @@
+<div class="container" *ngIf="userInfo; else loggedOut">
+  <header class="header">
+    <h1>Welcome back, {{userInfo.firstName}}</h1>
+  </header>
+
+  <div class="routes-section card">
+    <mat-tab-group>
+      <mat-tab label="Your Info">
+        <form class="profile-info-form" (ngSubmit)="onSubmit()">
+          <div class="info-wrapper">
+            <div class="profile-avatar">
+              <div class="col avt">
+                <img [src]="'https://static-00.iconduck.com/assets.00/avatar-default-light-icon-256x256-nyl11bbf.png'" alt="User Avatar">
+              </div>
+              <div class="col">
+                <div class="avatar-upload">
+                  <input id="file-input" type="file" class="" (change)="onFileSelected($event)">
+                </div>
+              </div>
+            </div>
+            <div class="form-wrapper">
+              <mat-card class="info-card">
+                <mat-card-content>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>First Name</mat-label>
+                      <input matInput [(ngModel)]="userInfo.firstName" name="firstName">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput [(ngModel)]="userInfo.lastName" name="lastName">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Email</mat-label>
+                      <input matInput [(ngModel)]="userInfo.email" name="email" disabled>
+                    </mat-form-field>
+                  </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-raised-button color="primary" type="submit">Save Changes</button>
+                  <button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+
+      <mat-tab label="Created">
+        <pm-profile-routes></pm-profile-routes>
+      </mat-tab>
+      <mat-tab label="Rated">
+        <pm-profile-rated-routes></pm-profile-rated-routes>
+      </mat-tab>
+      <mat-tab label="Saved">
+        <pm-profile-saved-routes></pm-profile-saved-routes>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="logged-out-message">
+    Please login.
+  </div>
+</ng-template>

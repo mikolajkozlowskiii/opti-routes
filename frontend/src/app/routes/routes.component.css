@@ -1,0 +1,72 @@
+.card {
+  max-width: 600px; /* Dostosuj szerokość karty do preferencji */
+  margin: auto; /* Wycentruj kartę */
+  margin-top: 50px; /* Dodaj odstęp od góry, aby było ładnie wyśrodkowane */
+  font-family: Monaco;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wycentruj elementy w pionie */
+}
+
+form {
+  width: 100%; /* Ustaw szerokość formularza na 100% */
+  padding: 20px; /* Dodaj wypełnienie dla estetyki */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Dodaj cień dla efektu podniesienia */
+  background-color: #fff; /* Domyślny kolor tła formularza */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+textarea,
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Włącz model pudełka */
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 20px; /* Dodaj odstęp od góry dla sekcji tekstu */
+}
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}

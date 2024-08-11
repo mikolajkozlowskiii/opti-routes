@@ -1,0 +1,44 @@
+th {
+    color: rgb(26, 106, 130);
+}
+
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+.btn-header{
+    margin: 5px;
+}
+
+
+.mat-paginator{
+  background-color: #f8f9fa
+}
+
+.mat-form-field { 
+
+  font-size: 11px;
+  margin-left: 10px;
+  height: 20px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.mat-form-field {
+    height: 40px; /* Adjust the height as needed */
+}

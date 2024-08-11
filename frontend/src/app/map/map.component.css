@@ -1,0 +1,260 @@
+.container {
+  display: flex;
+  height: 70vh;
+  gap: 10px;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.map-card {
+  flex: 2;
+  position: relative;
+  background-color: #f8f8f8;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map {
+  width: 170%;
+  height: 100%;
+}
+
+.location-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: grey;
+}
+
+.info-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tags-select, .checkboxes {
+  flex: 1;
+  margin-right: 30px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 20;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.overlay p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  animation: pulse 2s infinite;
+}
+
+.marker {
+  background-color: #0d6efd!important;
+  background: url('/assets/images/pin.jpg');
+}
+
+.mapboxgl-marker {
+  background-color: #0d6efd!important;
+}
+
+.mapboxgl-marker-anchor-center {
+  background-color: #0d6efd!important;
+}
+
+.tags-select, .checkboxes {
+  flex: 1;
+}
+
+.scrollable-chip-list {
+  max-height: 120px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrolable-description {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.mapboxgl-ctrl-geocoder {
+  position: absolute;
+  top: 10px; /* Odstęp od góry */
+  left: 10px; /* Odstęp od lewej strony */
+  z-index: 1; /* Wysokość warstwy dla poprawnego wyświetlania nad mapą */
+}
+
+.mapboxgl-ctrl-geocoder input {
+  font-size: 14px; /* Rozmiar czcionki dla pola wyszukiwania */
+  padding: 10px; /* Wewnętrzny odstęp */
+  border-radius: 5px; /* Zaokrąglenie rogów */
+  border: 1px solid #ccc; /* Styl obramowania */
+  width: 200px; /* Szerokość pola wyszukiwania */
+  box-sizing: border-box; /* Uwzględnienie obramowania w szerokości */
+}
+
+.mapboxgl-ctrl-geocoder input:focus {
+  outline: none; /* Usunięcie podświetlenia na focus */
+}
+
+.mapboxgl-ctrl-geocoder .suggestions {
+  background-color: #fff; /* Kolor tła dla sugestii */
+  border: 1px solid #ccc; /* Obramowanie sugestii */
+  border-radius: 5px; /* Zaokrąglenie rogów */
+  max-height: 200px; /* Maksymalna wysokość sugestii */
+  overflow-y: auto; /* Obszar przewijania dla długich sugestii */
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li {
+  padding: 10px; /* Wewnętrzny odstęp dla pojedynczej sugestii */
+  cursor: pointer; /* Zmień kursor na wskaźnik podczas najechania */
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li:hover {
+  background-color: #f0f0f0; /* Zmiana koloru tła podczas najechania */
+}
+
+.mapboxgl-ctrl-geocoder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  width: 300px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.mapboxgl-ctrl-geocoder input[type="text"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.mapboxgl-ctrl-geocoder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.mapboxgl-ctrl-geocoder input[type="text"] {
+  width: calc(100% - 20px);
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.mapboxgl-ctrl-geocoder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.mapboxgl-ctrl-geocoder .suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.blurred {
+  filter: blur(5px);
+  pointer-events: none;
+}

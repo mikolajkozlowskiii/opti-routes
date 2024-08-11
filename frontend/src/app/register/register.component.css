@@ -1,0 +1,81 @@
+.btn {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-title {
+    font-size: 40px;
+    font-weight: 100;
+}
+
+.card-img {
+    height: 65.5vh; /* Adjust the height as needed */
+    object-fit: cover;
+  }
+
+.card-container {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    max-width: 400px;
+    
+}
+
+.form-group {
+    color: whitesmoke;
+    font-weight: 500;
+    font-size: larger;
+}
+
+.optiroutes-label{
+    padding: 20px;
+    padding-left: 300px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 50px;
+    color:springgreen;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h2 {
+    font-size: 30px;
+    color:springgreen;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+p {
+    font-size: medium;
+    font-weight: 500;
+    color: whitesmoke
+}
+
+.card-container {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn-block {
+    margin-bottom: 15px;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn-group .btn {
+    border-radius: 0.25rem; /* lub inna wartość zaokrąglenia */
+    padding: 6px 24px;
+  }
+
+  @media (min-width: 1400px) {
+    .card {
+        max-width: 1020px !important;
+    }
+}

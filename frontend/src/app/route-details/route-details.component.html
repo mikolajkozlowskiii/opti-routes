@@ -1,0 +1,207 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<div class='card'> 
+  <mat-tab-group>
+    <mat-tab label="Map">
+      <div class='card-body'>
+        <div class='row'>
+          <div class='col-8 col-md-6'> <!-- Upewnij się, że kolumna ma odpowiednią klasę rozmiaru -->
+      
+       
+            <div id="map" class="map"></div>
+     
+    
+          </div>
+          <div class='col'>
+            <div class='col-md-12 '>
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>{{routeDetail?.author?.firstName}} {{routeDetail?.author?.lastName}}</mat-card-title>
+                  <mat-card-subtitle>Author</mat-card-subtitle>
+                  <button mat-fab color="accent" aria-label="Example icon button with a bookmark icon" class="top-right-button">
+                    <mat-icon>bookmark</mat-icon>
+                  </button>
+                  <button mat-fab color="accent" aria-label="Example icon button with a bookmark icon" class="top-right-button" (click)="handleBookmarkClick()">
+                    <mat-icon>bookmark</mat-icon>
+                  </button>
+              
+                  
+                  <button mat-fab color="accent" aria-label="Example icon button with a bookmark icon" class="top-right-button" (click)="handleBookmarkClick()">
+                    <mat-icon>bookmark</mat-icon>
+                  </button>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    {{routeDetail?.description}}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                 <p class="p-row">Your rate:</p>
+                <mat-slider
+                class="slow-transition"
+                thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1000"
+                step="1"
+                min="0"
+                max="10"
+                [(ngModel)]="sliderValue"
+                (ngModelChange)="onSliderChange($event)"
+                aria-label="units">
+              </mat-slider>
+                </mat-card-actions>
+              </mat-card>
+              <mat-card class="steps-custom-card">
+        
+    
+              <div class='row' *ngIf="routeDetail">
+                <div class="steps-container">
+                <span class="row" *ngFor="let step of routeDetail.steps">
+                  <div class='col'>
+                    {{step.step}}. <a href="routes">{{step.location.locationInfo.name}}</a>
+                  </div>
+
+    
+    
+  
+    
+                </span>
+               
+                </div>
+
+    
+    
+    
+    
+    
+    
+    
+              </div>
+            </mat-card>
+            </div>
+            
+          </div>
+        </div>
+    
+    
+    
+    
+      </div>
+    </mat-tab>
+    
+
+
+
+
+
+    <mat-tab label="Info">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="info-card">
+              <mat-icon>person</mat-icon>
+              <span class="label">Author:</span>
+              <a href="routes">{{routeDetail?.author?.firstName}} {{routeDetail?.author?.lastName}}</a>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>label</mat-icon>
+              <span class="label">Tags:</span>
+              <div class="tags" *ngIf="routeDetail">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let tag of routeDetail.tags">{{tag.name}}</mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>schedule</mat-icon>
+              <span class="label">Time:</span>
+              <span *ngIf="routeDetail">{{routeDetail.time_in_mili_seconds | convertToMFromMs}}</span>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>directions</mat-icon>
+              <span class="label">Distance:</span>
+              <span>{{routeDetail?.distance_in_meters}} m</span>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>calendar_today</mat-icon>
+              <span class="label">Created at:</span>
+              <span *ngIf="routeDetail">{{routeDetail.created_at | customDate}}</span>
+            </div>
+          </div>
+    
+          <div class="col-md-6">
+            <div class="info-card">
+              <mat-icon>star_rate</mat-icon>
+              <span class="label">Guides ratings:</span>
+              <span *ngIf="routeDetail">{{routeDetail?.guideUsersRatings?.average_rating}} / 10 ({{routeDetail.guideUsersRatings.userRatingResponse.length}})</span>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>star_rate</mat-icon>
+              <span class="label">Users ratings:</span>
+              <span *ngIf="routeDetail">{{routeDetail.usersRatings.average_rating}} / 10 ({{routeDetail.usersRatings.userRatingResponse.length}})</span>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>bookmark</mat-icon>
+              <span class="label">Saved times:</span>
+              <span>{{routeDetail?.saved_times}}</span>
+            </div>
+    
+            <div class="info-card">
+              <mat-icon>description</mat-icon>
+              <span class="label">Description:</span>
+              <span>{{routeDetail?.description}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    
+
+
+
+<!--
+    *ngFor='let instruction of arrayInstructions let i = index'
+    <mat-tab label="Instructions"> 
+      <mat-stepper orientation="vertical">
+        <mat-step>
+          <ng-template matStepLabel>Start</ng-template>
+          <ng-template matStepContent>
+            <p>{{arrayInstructions[0]}}</p>
+            <button mat-button matStepperNext>Next</button>
+          </ng-template>
+        </mat-step>
+        <mat-step *ngFor='let instruction of arrayInstructions.slice(1, -1) let i = index'>
+          <ng-template matStepLabel>Step</ng-template>
+          <ng-template matStepContent>
+            <p>{{instruction}}</p>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </ng-template>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>End</ng-template>
+          <p>{{arrayInstructions[arrayInstructions.length-1]}}</p>
+          <button mat-button matStepperPrevious>Back</button>
+        </mat-step>
+      </mat-stepper>
+
+
+    </mat-tab> -->
+  </mat-tab-group>
+  <div class='card-footer'>
+    <button class='btn btn-outline-primary' style='width:80px' (click)='onBack()'>
+      <span class="material-symbols-outlined align-middle">
+        undo
+        </span>
+    </button>
+  </div>
+  
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCQ70eTMkqih499n-9ERCLfv3XCW6WMcI"></script>

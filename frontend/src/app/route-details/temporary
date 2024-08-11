@@ -1,0 +1,228 @@
+<div class='card-body'>
+    <div class='row'>
+      <div class='col'>
+        <div class='col-md-12'>
+          <div class='row'>
+            <div class='col-md-4 custom-row '>Author:</div>
+            <div class='col'> <a href="routes"> {{routeDetail?.author?.firstName}} {{routeDetail?.author?.lastName}}
+              </a> </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4 custom-row '>Tags:</div>
+            <div class='col' *ngIf="routeDetail">
+              <div *ngFor="let tag of routeDetail.tags">{{tag.name}}</div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4 custom-row '>Time:</div>
+            <div class='col' *ngIf="routeDetail">{{routeDetail.time_in_mili_seconds | convertToMFromMs}}</div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4 custom-row '>Distance:</div>
+            <div class='col'>{{routeDetail?.distance_in_meters}} m</div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4  custom-row'>Created at</div>
+            <div class='col' *ngIf="routeDetail">{{routeDetail.created_at | customDate}}</div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4  custom-row'>Guides ratings:</div>
+            <div class='col' *ngIf="routeDetail">{{routeDetail?.guideUsersRatings?.average_rating}} / 10 ({{routeDetail.guideUsersRatings.userRatingResponse.length}})</div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4 custom-row'>Users ratings:</div>
+            <div class='col' *ngIf="routeDetail">{{routeDetail.usersRatings.average_rating}} / 10 ({{routeDetail.usersRatings.userRatingResponse.length}})</div>
+          </div>
+          <div class='row'>
+            <div class='col-md-4 custom-row'>Saved times:</div>
+            <div class='col-md-1'>{{routeDetail?.saved_times}}</div>
+            <div class='col'>
+              <div class='col-md-12'> </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class='col'>
+        <div class='col-md-12 '>
+          <div class="custom-row"> Steps:</div>
+
+          <div class='row' *ngIf="routeDetail">
+            <span class="row" *ngFor="let step of routeDetail.steps">
+              <div class='col-md-5'>
+                {{step.step}}. <a href="routes">{{step.location.locationInfo.name}}</a>
+              </div>
+              <!--
+              <img class="like-image" *ngIf="step.location.numOfLikes >= 0"> 
+              <img class="dislike-image" *ngIf="step.location.numOfLikes < 0"> 
+-->
+
+
+              <div class='col-md-1'> <button class='btn btn-success btn-like' style='width:50px' (click)='onBack()'>
+                  <span class="material-symbols-outlined align-middle">
+                    heart_plus
+                  </span>
+
+                </button></div>
+
+              <div class='col-md-2'> <button class='btn btn-danger btn-like' style='width:50px' (click)='onBack()'>
+                  <span class="material-symbols-outlined align-middle">
+                    heart_minus
+                  </span>
+                </button></div>
+              <div class="col-md-3">
+
+
+
+                <span *ngIf="step.location.numOfLikes > 0"> + {{step.location.numOfLikes}}
+                  <span class="material-symbols-outlined align-middle" *ngIf="step.location.numOfLikes > 0">
+                    trending_up
+                  </span>
+                </span>
+
+                <span *ngIf="step.location.numOfLikes == 0"> + {{step.location.numOfLikes}}
+                  <span class="material-symbols-outlined align-middle" *ngIf="step.location.numOfLikes == 0">
+                    trending_flat
+                  </span>
+                </span>
+
+                <span *ngIf="step.location.numOfLikes < 0"> {{step.location.numOfLikes}}
+                  <span class="material-symbols-outlined align-middle" *ngIf="step.location.numOfLikes < 0">
+                    trending_down
+                  </span>
+                </span>
+
+
+
+
+              </div>
+
+
+            </span>
+            <div class='row'>
+
+              <div class='col-md-2 custom-row rate-row'>Your rate:</div>
+              <!--
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  1
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  2
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  3
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  4
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  5
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  6
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  7
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  8
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  9
+                </button>
+                <button class='btn btn-light btn-rate-route' style='width:10px' (click)='onBack()'>
+                  10
+                </button> -->
+              <!--
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-secondary" style="background-color: #E8EADE;">1</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #D6D8CB;">2</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #D1D3C6;">3</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #C3C5B8;">4</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #B8BAAD;">5</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #ADAFA4;">6</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #9C9E94;">7</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #8A8B83;">8</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #84857D;">9</button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #6D6E66;">10</button>
+
+                  </div>
+                
+                </div> -->
+              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button *ngFor="let buttonNumber of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" type="button"
+                    class="btn btn-outline-secondary" [class.active]="isActive(buttonNumber)"
+                    (click)="toggleActive(buttonNumber)">
+                    {{ buttonNumber }}
+                  </button>
+
+                </div>
+
+
+
+
+              </div>
+
+
+
+
+
+            </div>
+
+
+            <div class='col' *ngIf="!isRouteSaved">
+              <div class='col-md-2 custom-row rate-row'>Save route:</div>
+              <button class='btn btn-dark btn-save-route' style='width:100px' (click)='onSave()'>
+                <span class="material-symbols-outlined">
+                  arrow_circle_down
+                </span>
+
+              </button>
+
+            </div>
+
+            <div class='col' *ngIf="isRouteSaved">
+              <div class='col-md-3 custom-row rate-row'>Unsave route:</div>
+              <button class='btn btn-dark btn-save-route' style='width:100px' (click)='onUnSave()'>
+                <span class="material-symbols-outlined">
+                  undo
+                </span>
+
+              </button>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+  <div class='card-footer'>
+    <button class='btn btn-outline-secondary' style='width:80px' (click)='onBack()'>
+      <i class='fa fa-chevron-left'></i> Back
+    </button>
+  </div>
+
+
+</div>

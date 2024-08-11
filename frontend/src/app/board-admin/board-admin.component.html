@@ -1,0 +1,50 @@
+<div class="container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
+    </ng-container>
+
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.firstName }}</mat-cell>
+    </ng-container>
+
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.lastName }}</mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+    </ng-container>
+
+    <!-- Roles Column -->
+    <ng-container matColumnDef="roles">
+      <mat-header-cell *matHeaderCellDef>Roles</mat-header-cell>
+      <mat-cell *matCellDef="let user">{{ user.roles.join(', ') }}</mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <div class="btn-group" role="group" aria-label="User actions">
+          <button *ngIf="!user.roles.includes('ROLE_ADMIN')" class="btn btn-danger btn-sm" (click)="removeAccount(user.id)">Remove Account</button>
+          <button *ngIf="!user.roles.includes('ROLE_MODERATOR')" class="btn btn-warning btn-sm" (click)="addModerator(user.id)">Add Moderator</button>
+          <button *ngIf="user.roles.includes('ROLE_MODERATOR')" class="btn btn-secondary btn-sm" (click)="removeModerator(user.id)">Remove Moderator</button>
+          <button *ngIf="!user.roles.includes('ROLE_GUIDE')" class="btn btn-info btn-sm" (click)="addGuide(user.id)">Add Guide</button>
+          <button *ngIf="user.roles.includes('ROLE_GUIDE')" class="btn btn-dark btn-sm" (click)="removeGuide(user.id)">Remove Guide</button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
