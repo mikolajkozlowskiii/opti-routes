@@ -29,6 +29,7 @@ This project is a web application designed for outdoor enthusiasts who enjoy cre
 
 
 https://github.com/user-attachments/assets/ff1146de-c9e7-455a-8538-e50310fb3d14
+
 In this video there is functionality of creating route by first pressing the button to locate me, so that the map is centred on the geographical location where user is at the moment. Then the route is created by selecting a locations on the map, and filling in a form concerning the description of the route, selecting tags and checking the boxes whether the route should be publicly available and whether it should be optimised, if so, the specific location should be selected as a depot, i.e. the beginning and the end of the route.
 
 
