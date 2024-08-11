@@ -40,12 +40,15 @@ https://github.com/user-attachments/assets/a9d28b4a-e3fa-4913-b8e6-85b70d3fc046
 This video is a continuation of the previous one, showing the result of the route creation. The locations have new assigned numbers indicating the order to visit. This is the result of the optimisation - solving Asymmetric Traveling Salesman Problem. This combination is faster, than user's initial order of visiting location. The route has been calculated in terms of length and time. Route can be rated or saved as well.
 
 ## Test
+
+
 ![Screenshot 2024-07-21 at 17 59 59](https://github.com/user-attachments/assets/9985470f-b4f9-468a-a9ed-f7c9b5a0d6c9)
+
 This is a comparison on specific route of distances between locations. Distances here are equal to distances generated on google maps, time is a little bit diffrent, because of a.o. assumed diffrent speed of hiking.
 
 
 
-## ## Entity Relationship Diagram 
+## Entity Relationship Diagram 
 
 
 https://github.com/user-attachments/assets/92a8f548-5404-4177-83c9-a5fe7000a0ba
